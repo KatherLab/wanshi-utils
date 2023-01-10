@@ -4,7 +4,7 @@
 
 A stand-alone util repo
 
-This will be out utilities repo, scripts/personalized tools including visualizations, result assesments and anything else that can be decoupled with marugoto pipeline can be put here. Please don't hesitate to create your pull request。
+This will be out utilities repo, scripts/personalized tools including visualizations, result assesments and anything else that can be decoupled with marugoto pipeline can be put here. Please don't hesitate to create your pull request.
 
 This repository contains:
 
@@ -52,10 +52,11 @@ Software engineering team
 
 Feel free to dive in! [Open an issue](https://github.com/KatherLab/wanshi-utils/issues/new) or submit PRs.
 
+Before creating a pull request, please take some time to take a look at our [wiki page](https://github.com/KatherLab/wanshi-utils/wiki/How-We-Work), to ensure good code quality and sufficient documentation. Don't need to follow all of the guidelines at this moment, but it would be really helpful!
 
 ### Contributors
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
 
 
 ## License
