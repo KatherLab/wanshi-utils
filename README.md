@@ -1,6 +1,7 @@
 # Wanshi-Utils 丸事
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A stand-alone util repo
 
@@ -27,20 +28,17 @@ This repository contains:
 
 ## Install
 
-requirement will follow up soon...
+To install, run:
 
-```sh
-$ git clone https://github.com/KatherLab/wanshi-utils.git
+```console
+$ python3 -m pip install git+https://github.com/KatherLab/wanshi-utils.git
 ```
 
 ## Usage
 
 
-```sh
-$ 
-```
-
 ## Maintainers
+
 Software engineering team
 
 [@Jeff](https://github.com/Ultimate-Storm).
