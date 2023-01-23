@@ -93,7 +93,9 @@ def aggregate_categorical_stats(df: pd.DataFrame) -> pd.DataFrame:
     for cat, data in df.groupby("level_1"):
         scores_df = data[score_labels]
         means, sems = scores_df.mean(), scores_df.sem()
-        l, h = st.t.interval(alpha=0.95, df=len(scores_df) - 1, loc=means, scale=sems)
+        l, h = st.t.interval(
+            confidence=0.95, df=len(scores_df) - 1, loc=means, scale=sems
+        )
         cat_stats_df = (
             pd.DataFrame.from_dict({"mean": means, "95% conf": (h - l) / 2})
             .transpose()
@@ -111,7 +113,7 @@ def bootstrapped_categorical(
     """Calculates categorical stats confidence intervals by bootstrapping."""
     # sample repeatedly and calculate statistics for each iteration
     sample_stats = []
-    for _ in trange(n_samples, desc="Bootstrapping stats"):
+    for _ in trange(n_samples, desc="Bootstrapping stats", leave=False):
         sample_df = preds_df.sample(frac=1, replace=True)
         sample_stats.append(categorical(sample_df, target_label))
 
@@ -160,7 +162,7 @@ def add_stats_categorical_args(parser: ArgumentParser) -> ArgumentParser:
         help="Target to generate statistics for.",
     )
     parser.add_argument(
-        "--bootstrap-n-samples",
+        "--n-bootstrap-samples",
         type=int,
         help=(
             "Number of samples used during bootstrapping.  "
@@ -180,7 +182,7 @@ if __name__ == "__main__":
 
     args.outpath.mkdir(parents=True, exist_ok=True)
 
-    if args.bootstrap_n_samples:
+    if args.n_bootstrap_samples:
         # for bootstrapping we sample from all the available predictions
         preds_df = pd.concat([pd.read_csv(p, dtype=str) for p in args.preds_csvs])
         bootstrapped_stats = bootstrapped_categorical(
