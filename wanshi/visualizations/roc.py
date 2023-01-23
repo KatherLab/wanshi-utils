@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 from collections import namedtuple
+import logging
 from pathlib import Path
 from typing import Sequence, Optional, Tuple, Mapping, List
 
@@ -191,7 +192,7 @@ def plot_decorated_rocs_for_subtypes(
             continue
 
         if len(np.unique(y_true)) <= 1:
-            print(
+            logging.warn(
                 f"subgroup {subgroup} does only have samples of one class... skipping"
             )
             continue
