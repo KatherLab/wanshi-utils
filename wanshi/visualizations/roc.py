@@ -17,7 +17,6 @@ all = [
     "plot_roc_curve",
     "plot_roc_curves",
     "plot_rocs_for_subtypes",
-    "plot_roc_curves_",
 ]
 
 
@@ -181,6 +180,7 @@ def plot_decorated_rocs_for_subtypes(
     groups: Mapping[str, Tuple[npt.NDArray[np.bool_], npt.NDArray[np.float_]]],
     *,
     target_label: str,
+    true_label: str,
     subgroup_label: str,
     subgroups: Optional[Sequence[str]] = None,
     n_bootstrap_samples: Optional[int] = None,
@@ -215,7 +215,7 @@ def plot_decorated_rocs_for_subtypes(
     # style plot
     style_auc(ax)
     ax.legend(loc="lower right")
-    ax.set_title(f"{target_label} Subgrouped by {subgroup_label}")
+    ax.set_title(f"{target_label} = {true_label} Subgrouped by {subgroup_label}")
 
 
 def plot_bootstrapped_roc_curve(
@@ -330,6 +330,7 @@ if __name__ == "__main__":
                 ax,
                 groups,
                 target_label=args.target_label,
+                true_label=args.true_label,
                 subgroup_label=args.subgroup_label,
                 subgroups=args.subgroups,
                 n_bootstrap_samples=args.n_bootstrap_samples,

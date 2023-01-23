@@ -39,9 +39,9 @@ python -m wanshi.visualizations.roc \
     --n-bootstrap-samples=1000 \
     --clini-table=/path/to/clini.xlsx \
     --subgroup-label=Subtypes_2021 \
-    --figure-width=10 \
+    --figure-width=6 \
     /path/to/patient-preds.csv
 ```
 
-`--figure-width=10` is used to increase the figure width to 10 inches,
+`--figure-width=6` is used to increase the figure width to 10 inches,
 in order to make space for the longer text in this type of plot.
