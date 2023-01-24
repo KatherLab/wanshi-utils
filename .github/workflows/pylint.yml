@@ -27,5 +27,5 @@ jobs:
           pip3 install pylint
       - name: Analysing the code with pylint
         run: |
-          pylint $(git ls-files '*.py')
+          pylint $(git ls-files '*.py') --rcfile=.pylintrc
           continue-on-error: true   
