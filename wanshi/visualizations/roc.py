@@ -30,21 +30,32 @@ def add_roc_curve_args(parser: argparse.ArgumentParser) -> argparse.ArgumentPars
     )
     parser.add_argument(
         "--target-label",
+        metavar="LABEL",
         required=True,
         type=str,
         help="The target label to calculate the ROC for.",
     )
     parser.add_argument(
         "--true-label",
+        metavar="LABEL",
         required=True,
         type=str,
         help="The target label to calculate the ROC for.",
     )
     parser.add_argument(
-        "-o", "--outpath", required=True, type=Path, help="Path to save the `.svg` to."
+        "-o",
+        "--outpath",
+        metavar="PATH",
+        required=True,
+        type=Path,
+        help=(
+            "Path to save the ROC to.  "
+            "Has to have an image extension (e.g. `.svg`, `.png`, etc.)"
+        ),
     )
     parser.add_argument(
         "--subgroup-label",
+        metavar="LABEL",
         required=False,
         type=str,
         help="Column name in Clini where to get the subgroups from.",
@@ -63,11 +74,18 @@ def add_roc_curve_args(parser: argparse.ArgumentParser) -> argparse.ArgumentPars
     )
     parser.add_argument(
         "--clini-table",
+        metavar="PATH",
         required=False,
         type=Path,
-        help="Path to get subgroup information from Clini table from.",
+        help="Path to get subgroup information from clini table from.",
     )
-    parser.add_argument("--n-bootstrap-samples", type=int)
+    parser.add_argument(
+        "--n-bootstrap-samples",
+        metavar="N",
+        type=int,
+        required=False,
+        help="Number of bootstrapping samples to take for confidence interval generation.",
+    )
 
     return parser
 
@@ -289,6 +307,7 @@ if __name__ == "__main__":
     add_roc_curve_args(parser)
     parser.add_argument(
         "--figure-width",
+        metavar="INCHES",
         type=float,
         required=False,
         help="Width of the figure in inches.",
