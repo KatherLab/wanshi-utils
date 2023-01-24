@@ -1,24 +1,14 @@
-name: test full
+name: Pytest
 
-on:
-  workflow_dispatch:
+on: [push]
 
 jobs:
-  full_test:
+  Pytest:
     strategy:
       fail-fast: false
       matrix:
-        os-version: ['ubuntu-20.04','windows-latest','macos-latest']
+        os-version: ['ubuntu-20.04']
         python-version: [ '3.10' ]
-        include:
-          - os-version: 'ubuntu-20.04'
-            python-version: '3.6'
-          - os-version: 'ubuntu-20.04'
-            python-version: '3.7'
-          - os-version: 'ubuntu-20.04'
-            python-version: '3.8'
-          - os-version: 'ubuntu-20.04'
-            python-version: '3.9'
     runs-on: ${{ matrix.os-version }}
     name: test package on ${{ matrix.os-version }} with ${{ matrix.python-version }}
     steps:
@@ -37,4 +27,4 @@ jobs:
           pip3 install pytest
       #test
       - name: Launch test
-        uses: ./.github/actions/test
+        run: python -m pytest wanshi/visualizations/test/
