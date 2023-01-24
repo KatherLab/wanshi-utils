@@ -4,6 +4,8 @@
 
 ### A Single ROC Curve with Bootstrapped 95% Confidence Intervals
 
+Code only work for Python 3.10 and above.
+
 ![A Single ROC Curve with Bootstrapped 95% Confidence Intervals](assets/single_roc.svg)
 
 ```sh
