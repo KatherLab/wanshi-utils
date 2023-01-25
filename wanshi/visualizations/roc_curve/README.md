@@ -4,10 +4,12 @@
 
 ### A Single ROC Curve with Bootstrapped 95% Confidence Intervals
 
+Code only work for Python 3.10 and above.
+
 ![A Single ROC Curve with Bootstrapped 95% Confidence Intervals](assets/single_roc.svg)
 
 ```sh
-python -m wanshi.visualizations.roc \
+python -m wanshi.visualizations.roc-curve.roc \
     --outpath=/project/path/single_roc.svg \
     --target-label=IDH \
     --true-label=MUT \
@@ -20,7 +22,7 @@ python -m wanshi.visualizations.roc \
 ![ROC Curves for a Cross-Validation Experiment](assets/crossval_rocs.svg)
 
 ```sh
-python -m wanshi.visualizations.roc \
+python -m wanshi.visualizations.roc-curve.roc \
     --outpath=/project/path/crossval_rocs.svg \
     --target-label=IDH \
     --true-label=MUT \
@@ -32,7 +34,7 @@ python -m wanshi.visualizations.roc \
 ![ROC Curves for a Cross-Validation Experiment](assets/roc_subgroup.svg)
 
 ```sh
-python -m wanshi.visualizations.roc \
+python -m wanshi.visualizations.roc-curve.roc \
     --outpath=/project/path/roc_subgroups.svg \
     --target-label=IDH1 \
     --true-label=MUT \
