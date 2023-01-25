@@ -1,8 +1,8 @@
-author = "Marco"
+author = "Marco Gustav"
 copyright = "Copyright 2023, Kather Lab"
 license = "MIT"
 version = "0.1.0"
-maintainer = ["Marco", "Jeff"]
+maintainer = ["Marco Gustav", "Jeff"]
 email = "marco.gustav@tu-dresden.de"
 
 #!/usr/bin/env python3
@@ -20,19 +20,18 @@ import matplotlib.pyplot as plt
 # pd float shown with 2 decimal places
 pd.set_option("display.float_format", lambda x: "%.5f" % x)
 
-
 def plot_bubble(
     data_path_internal: str,
     data_paths_external: List[str],
     title: str,
     outpath: str,
     internal_cohort_name: str,
+    color_scheme: list,
     format: str = "norm",
     zoom_x_lower_thresh: float = 0.75,
     zoom_x_upper_thresh: float = 0.95,
     zoom_y_lower_thresh: float = 0.75,
     zoom_y_upper_thresh: float = 0.95,
-    color_scheme: list = ['#66CCEE', '#EE6677', '#4477AA', '#228833', '#CCBB44', '#AA3377'],
 ) -> None:
     """
     Plots a bubble plot of the median AUC values of multiple target predictions for multiple cohorts.
@@ -292,7 +291,6 @@ def plot_bubble(
 
     # final aesthetics
     fig.subplots_adjust(right=0.75, left=0.08, bottom=-0.1, top=1.1)
-
 
     plt.savefig(f'{args.outpath}/{internal_cohort_name}.svg')
     plt.show()
