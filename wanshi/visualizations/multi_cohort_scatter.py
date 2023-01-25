@@ -23,7 +23,7 @@ def plot_bubble(
     data_path_internal: str,
     data_paths_external: List[str],
     title: str,
-    internal_cohort,
+    internal_cohort_name,
     format: str = "norm",
     zoom_x_lower_thresh: float = 0.75,
     zoom_x_upper_thresh: float = 0.95,
@@ -38,7 +38,7 @@ def plot_bubble(
         data_path_internal (str): The path to the internal cross-validation results.
         data_paths_external (list): The paths to the external validation results. path to the folder with subfolders that are called as 'format'
         title (str): The title of the plot.
-        internal_cohort (str): The name of the internal cohort.
+        internal_cohort_name (str): The name of the internal cohort.
         format: List of strings with the format of the data (raw, norm). Can potentially be used as hue.
         color_scheme (str): The color scheme of the plot.
 
@@ -116,11 +116,14 @@ def plot_bubble(
     # input
     data = median_pivot.copy()
     # figure layout
-    fig, axes = plt.subplots(1, 2, figsize=(30, 15))
-    plt.suptitle(title, ha="center", va="top")
-    plt.subplots_adjust(top=0.9)
+    fig_width = 40
+    fig_height = 15
+    fig, axes = plt.subplots(1, 2, figsize=(fig_width, fig_height))
+    fontsize=20
+    plt.suptitle(title, ha="center", va="top", fontsize=fontsize*1.5)
+    plt.subplots_adjust(top=0.95)
     # settings
-    sns.set(font_scale=2.2)
+    #sns.set(font_scale=2)
     fig.canvas.draw()
 
     # empty list for the annotations in the zoom
@@ -168,8 +171,8 @@ def plot_bubble(
                             linewidth=0.5,
                             alpha=0.5,
                         ),
-                        fontsize=20,
                         rotation=0,
+                        fontsize=fontsize
                     )
                 )
             else:
@@ -183,7 +186,10 @@ def plot_bubble(
         ax.grid(visible=True, axis="both")
         ax.set_aspect("equal", "box")
         ax.set_xlabel("Median AUROC for external validation cohorts")
-        ax.set_ylabel(f"Median AUROC for internal validation cohort: {internal_cohort}")
+        ax.set_ylabel(f"Median AUROC for internal validation cohort: {internal_cohort_name}")
+    
+        for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] + ax.get_xticklabels() + ax.get_yticklabels()):
+            item.set_fontsize(fontsize)  
 
     # create zoom patch for highlighting zoom region in ax1
     zoom = ptch.Rectangle(
@@ -208,6 +214,7 @@ def plot_bubble(
     ax1.annotate(
         f"{ax2.get_title()}",
         xy=(zoom_x_upper_thresh - 0.03, zoom_y_lower_thresh + 0.01),
+        fontsize=fontsize
     )
 
     # ax2
@@ -241,6 +248,7 @@ def plot_bubble(
         loc="upper left",
         borderaxespad=0.0,
         fancybox=True,
+        fontsize=fontsize
     )
 
     # get height of top legend to align second legend below it
@@ -259,17 +267,33 @@ def plot_bubble(
     # create second custom legend with numbers and labels
     leg2 = ax2.legend(
         handles=legend_elements,
-        bbox_to_anchor=(1.05, zoom_y_upper_thresh * 2 - legend_height_inches),
+        bbox_to_anchor=(1.05, zoom_y_upper_thresh - 0.1 * legend_height_inches),
         bbox_transform=ax2.transAxes,
         loc="upper left",
         borderaxespad=0.0,
         handlelength=0,
         handletextpad=0,
         fancybox=True,
+        fontsize=fontsize
     )
 
     for item in leg2.legendHandles:
         item.set_visible(False)
 
-    # plt.savefig(f'{data_path}/figures/deploy_SR21-0809_{i}.png')
+    # final aesthetics
+    fig.subplots_adjust(right=0.75, left=0.08, bottom=-0.1, top=1.1)
+
+
+    plt.savefig(f'{data_path_internal}/figures/{internal_cohort_name}.svg')
     plt.show()
+
+plot_bubble(
+    data_path_internal = f"/home/marcogustav/Documents/projects/gecco/results/crossval",
+    data_paths_external = [
+    f"/home/marcogustav/Documents/projects/gecco/results/deploy/SR21-0809",
+    "/home/marcogustav/Documents/projects/gecco/results/deploy/EPIC-Norfolk_SR21-1141",
+    ],
+    title = "Prediction of Biomarkers from H&E pathology slides from GECCO",
+    internal_cohort_name = "WHI",
+    format='norm',
+    color_scheme=['#ffa200', '#0f69c2', '#7a7a7a'])
