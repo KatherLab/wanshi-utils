@@ -2,7 +2,7 @@
 
 ## Scatterplot for multi-cohort multi-target visualization
 
-![Example for a multi-target experiment with two external cohorts](assets/multicohort-multitarget-plot.png)
+![Example for a multi-target experiment with two external cohorts](wanshi-utils/wanshi/visualizations/assets/multicohort-multitarget-plot.png)
 
 ```sh
 python -m wanshi.visualizations.multi_cohort_scatter.multi_cohort_scatter \
