@@ -5,12 +5,14 @@ version = "0.1.0"
 maintainer = ["Marco", "Jeff"]
 email = "marco.gustav@tu-dresden.de"
 
-# import
+#!/usr/bin/env python3
 import os
+import argparse
 import pandas as pd
 import numpy as np
 from typing import List
 from sklearn import metrics
+from pathlib import Path
 import seaborn as sns
 import matplotlib.patches as ptch
 import matplotlib.pyplot as plt
@@ -23,16 +25,17 @@ def plot_bubble(
     data_path_internal: str,
     data_paths_external: List[str],
     title: str,
-    internal_cohort_name,
+    outpath: str,
+    internal_cohort_name: str,
     format: str = "norm",
     zoom_x_lower_thresh: float = 0.75,
     zoom_x_upper_thresh: float = 0.95,
     zoom_y_lower_thresh: float = 0.75,
     zoom_y_upper_thresh: float = 0.95,
-    color_scheme="bright",
+    color_scheme: list = ['#66CCEE', '#EE6677', '#4477AA', '#228833', '#CCBB44', '#AA3377'],
 ) -> None:
     """
-    Plots a bubble plot of the median AUC values of different target predictions for different cohorts.
+    Plots a bubble plot of the median AUC values of multiple target predictions for multiple cohorts.
 
     Parameters:
         data_path_internal (str): The path to the internal cross-validation results.
@@ -40,7 +43,12 @@ def plot_bubble(
         title (str): The title of the plot.
         internal_cohort_name (str): The name of the internal cohort.
         format: List of strings with the format of the data (raw, norm). Can potentially be used as hue.
-        color_scheme (str): The color scheme of the plot.
+        color_scheme List(str): The color scheme of the plot.
+        outpath (Path): Output path for saving .svg.
+        zoom_x_lower_thresh (float): Left threshold for zoom box.
+        zoom_x_upper_thresh (float): Right threshold for zoom box.
+        zoom_y_lower_thresh (float): Bottom threshold for zoom box.
+        zoom_y_upper_thresh (float): Top threshold for zoom box.
 
     Returns:
         None
@@ -49,21 +57,23 @@ def plot_bubble(
     # first element in list is always internal crossval
     data_paths = [data_path_internal] + data_paths_external
 
+    #TODO: add colormap input
+    # color scheme
+    if color_scheme is None:
+        color_scheme = ['#66CCEE', '#EE6677', '#4477AA', '#228833', '#CCBB44', '#AA3377']  
+
     # create cohorts list for adding cohorts from path endings
     cohorts = []
     # create dataframe to fill with the content of the result files
     results = pd.DataFrame(columns=["target", "cohort", "format", "fold", "auc"])
 
     # fill dataframe with data
-    # for each format (raw, norm)
-    # for form in format:
-
     # for each cohort in paths
     for path_name in data_paths:
         # be aware: path is extended by form argument
         data_path_form = f"{path_name}/{format}/"
         # fill list with cohort names taken from last string in path name
-        cohort = (path_name).split("/")[-1]
+        cohort = str(path_name).split("/")[-1]
         cohorts.append(cohort)
         # read patient preds files and extract names and values of/for the predicted targets
         for folder, sub_folders, files in os.walk(data_path_form):
@@ -284,16 +294,67 @@ def plot_bubble(
     fig.subplots_adjust(right=0.75, left=0.08, bottom=-0.1, top=1.1)
 
 
-    plt.savefig(f'{data_path_internal}/figures/{internal_cohort_name}.svg')
+    plt.savefig(f'{args.outpath}/{internal_cohort_name}.svg')
     plt.show()
 
-plot_bubble(
-    data_path_internal = f"/home/marcogustav/Documents/projects/gecco/results/crossval",
-    data_paths_external = [
-    f"/home/marcogustav/Documents/projects/gecco/results/deploy/SR21-0809",
-    "/home/marcogustav/Documents/projects/gecco/results/deploy/EPIC-Norfolk_SR21-1141",
-    ],
-    title = "Prediction of Biomarkers from H&E pathology slides from GECCO",
-    internal_cohort_name = "WHI",
-    format='norm',
-    color_scheme=['#ffa200', '#0f69c2', '#7a7a7a'])
+def add_multi_cohort_scatter_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+    parser.add_argument(
+        "--data-path-internal",
+        required=True,
+        type=Path,
+        help="Folder path for results of internal crossvalidation. Contains folders with results for norm and/or raw that contain one folder for each target.",
+    )
+    parser.add_argument(
+        "--internal-cohort-name",
+        required=True,
+        type=str,
+        help="Name of cohort that was internal crossval performed on.",
+    )
+    parser.add_argument(
+        "--data-paths-external",
+        required=True,
+        action="append",
+        type=Path,
+        help="List of folder paths for results of external crossvalidation. End of path should contain cohort name. Contains folders with results for norm and/or raw that contain one folder for each target.",
+    )
+    parser.add_argument(
+        "--format",
+        required=True,
+        type=str,
+        help="Format of tiles that were used. 'norm' or 'raw' for example. Should be the same as the name in the subfolder in your cohort folder.",
+    )
+    parser.add_argument(
+        "--title",
+        required=True,
+        type=str,
+        help="Title of figure.",
+    )
+    parser.add_argument(
+        "--outpath", 
+        required=True, 
+        type=Path,
+        help="Path to save the `.svg` to."
+    )
+    parser.add_argument(
+        "--color-scheme",
+        required=False,
+        type=list,
+        help="List with color codes in HEX.",
+    )
+
+    return parser
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Create multi cohort scatterplot.")
+    add_multi_cohort_scatter_args(parser)
+    args = parser.parse_args()
+
+    plot_bubble(
+        data_path_internal = args.data_path_internal,
+        data_paths_external = args.data_paths_external,
+        title = args.title,
+        internal_cohort_name = args.internal_cohort_name,
+        format=args.format,
+        color_scheme=args.color_scheme,
+        outpath=args.outpath
+        )
