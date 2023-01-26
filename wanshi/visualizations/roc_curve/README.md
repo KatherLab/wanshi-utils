@@ -47,3 +47,16 @@ python -m wanshi.visualizations.roc-curve.roc \
 
 `--figure-width=6` is used to increase the figure width to 10 inches,
 in order to make space for the longer text in this type of plot.
+
+### A Single ROC Curve Colored by Threshold
+
+![A Single ROC Curve Colored by Threshold](assets/threshold_roc.svg)
+
+```sh
+python -m wanshi.visualizations.roc \
+    --outpath=/project/path/threshold_roc.svg \
+    --target-label=IDH \
+    --true-label=MUT \
+    --threshold-cmap=viridis \
+    /path/to/patient-preds.csv
+```

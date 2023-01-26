@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-import argparse
+from argparse import ArgumentParser
 from collections import namedtuple
 import logging
 from pathlib import Path
 from typing import Sequence, Optional, Tuple, Mapping, List
 
 from matplotlib import pyplot as plt
+from matplotlib.collections import LineCollection
+from matplotlib.colors import Colormap
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
@@ -20,7 +22,7 @@ all = [
 ]
 
 
-def add_roc_curve_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+def add_roc_curve_args(parser: ArgumentParser) -> ArgumentParser:
     parser.add_argument(
         "pred_csvs",
         metavar="PREDS_CSV",
@@ -30,21 +32,32 @@ def add_roc_curve_args(parser: argparse.ArgumentParser) -> argparse.ArgumentPars
     )
     parser.add_argument(
         "--target-label",
+        metavar="LABEL",
         required=True,
         type=str,
         help="The target label to calculate the ROC for.",
     )
     parser.add_argument(
         "--true-label",
+        metavar="LABEL",
         required=True,
         type=str,
         help="The target label to calculate the ROC for.",
     )
     parser.add_argument(
-        "-o", "--outpath", required=True, type=Path, help="Path to save the `.svg` to."
+        "-o",
+        "--outpath",
+        metavar="PATH",
+        required=True,
+        type=Path,
+        help=(
+            "Path to save the ROC to.  "
+            "Has to have an image extension (e.g. `.svg`, `.png`, etc.)"
+        ),
     )
     parser.add_argument(
         "--subgroup-label",
+        metavar="LABEL",
         required=False,
         type=str,
         help="Column name in Clini where to get the subgroups from.",
@@ -63,11 +76,25 @@ def add_roc_curve_args(parser: argparse.ArgumentParser) -> argparse.ArgumentPars
     )
     parser.add_argument(
         "--clini-table",
+        metavar="PATH",
         required=False,
         type=Path,
-        help="Path to get subgroup information from Clini table from.",
+        help="Path to get subgroup information from clini table from.",
     )
-    parser.add_argument("--n-bootstrap-samples", type=int)
+    parser.add_argument(
+        "--n-bootstrap-samples",
+        metavar="N",
+        type=int,
+        required=False,
+        help="Number of bootstrapping samples to take for confidence interval generation.",
+    )
+    parser.add_argument(
+        "--threshold-cmap",
+        metavar="COLORMAP",
+        type=plt.get_cmap,
+        required=False,
+        help="Draw Curve with threshold color.",
+    )
 
     return parser
 
@@ -79,6 +106,7 @@ def plot_single_decorated_roc_curve(
     *,
     title: Optional[str] = None,
     n_bootstrap_samples: Optional[int] = None,
+    threshold_cmap: Optional[Colormap] = None,
 ) -> plt.Axes:
     """Plots a single ROC curve.
 
@@ -89,7 +117,12 @@ def plot_single_decorated_roc_curve(
         title:  Title of the plot.
     """
     plot_bootstrapped_roc_curve(
-        ax, y_true, y_pred, label="AUC = {ci}", n_bootstrap_samples=n_bootstrap_samples
+        ax,
+        y_true,
+        y_pred,
+        label="AUC = {ci}",
+        n_bootstrap_samples=n_bootstrap_samples,
+        threshold_cmap=threshold_cmap,
     )
     style_auc(ax)
     if title:
@@ -224,6 +257,7 @@ def plot_bootstrapped_roc_curve(
     y_score: npt.NDArray[np.float_],
     label: Optional[str],
     n_bootstrap_samples: Optional[int] = None,
+    threshold_cmap: Optional[Colormap] = None,
 ):
     """Plots a roc curve with bootstrap interval.
 
@@ -255,22 +289,52 @@ def plot_bootstrapped_roc_curve(
             sample_y_score = y_score[sample_idxs]
             if len(np.unique(sample_y_true)) != 2:
                 continue
-            fpr, tpr, _ = roc_curve(sample_y_true, sample_y_score)
+            fpr, tpr, thresh = roc_curve(sample_y_true, sample_y_score)
             interp_rocs.append(np.interp(interp_fpr, fpr, tpr))
             bootstrap_aucs.append(roc_auc_score(sample_y_true, sample_y_score))
 
         lower = np.quantile(interp_rocs, 0.025, axis=0)
         upper = np.quantile(interp_rocs, 0.975, axis=0)
         ax.fill_between(interp_fpr, lower, upper, alpha=0.5)
+
         conf_range = (
             np.quantile(bootstrap_aucs, 0.975) - np.quantile(bootstrap_aucs, 0.025)
         ) / 2
 
-    fpr, tpr, _ = roc_curve(y_true, y_score)
+    fpr, tpr, thresh = roc_curve(y_true, y_score)
     auc = roc_auc_score(y_true, y_score)
     ci_str = f"${auc:0.2f} \pm {conf_range:0.2f}$" if conf_range else f"${auc:0.2f}$"
-    ax.plot(fpr, tpr, label=label.format(ci=ci_str) if label else "")
+    # ax.plot(fpr, tpr, label=label.format(ci=ci_str) if label else "")
+    plot_curve(
+        ax,
+        fpr,
+        tpr,
+        np.clip(thresh, 0, 1),
+        label=label.format(ci=ci_str) if label else "",
+        threshold_cmap=threshold_cmap,
+    )
     return auc, conf_range
+
+
+def plot_curve(
+    ax: plt.Axes,
+    x: npt.NDArray[np.float_],
+    y: npt.NDArray[np.float_],
+    thresh: npt.NDArray[np.float_],
+    *,
+    label: Optional[str],
+    threshold_cmap: Optional[Colormap] = None,
+) -> None:
+    if threshold_cmap is not None:
+        points = np.array([x, y]).transpose().reshape(-1, 1, 2)
+        segments = np.concatenate([points[:-1], points[1:]], axis=1)
+        lc = LineCollection(segments, cmap=threshold_cmap, label=label)
+        lc.set_array(thresh)
+        ax.add_collection(lc)
+        ax.set_xlim(-0.05, 1.05)
+        ax.set_ylim(-0.05, 1.05)
+    else:
+        ax.plot(x, y, label=label)
 
 
 def read_table(path: Path) -> pd.DataFrame:
@@ -285,10 +349,11 @@ def read_table(path: Path) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create a ROC Curve.")
+    parser = ArgumentParser(description="Create a ROC Curve.")
     add_roc_curve_args(parser)
     parser.add_argument(
         "--figure-width",
+        metavar="INCHES",
         type=float,
         required=False,
         help="Width of the figure in inches.",
@@ -342,6 +407,7 @@ if __name__ == "__main__":
                 y_preds[0],
                 title=f"{args.target_label} = {args.true_label}",
                 n_bootstrap_samples=args.n_bootstrap_samples,
+                threshold_cmap=args.threshold_cmap,
             )
 
     else:
