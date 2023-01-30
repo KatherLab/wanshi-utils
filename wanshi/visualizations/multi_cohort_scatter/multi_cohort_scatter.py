@@ -5,20 +5,22 @@ version = "0.1.0"
 maintainer = ["Marco Gustav", "Jeff"]
 email = "marco.gustav@tu-dresden.de"
 
-#!/usr/bin/env python3
-import os
 import argparse
-import pandas as pd
-import numpy as np
-from typing import List
-from sklearn import metrics
+# !/usr/bin/env python3
+import os
 from pathlib import Path
-import seaborn as sns
+from typing import List
+
 import matplotlib.patches as ptch
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from sklearn import metrics
 
 # pd float shown with 2 decimal places
 pd.set_option("display.float_format", lambda x: "%.5f" % x)
+
 
 def plot_bubble(
     data_path_internal: str,
@@ -56,10 +58,10 @@ def plot_bubble(
     # first element in list is always internal crossval
     data_paths = [data_path_internal] + data_paths_external
 
-    #TODO: add colormap input
+    # TODO: add colormap input
     # color scheme
     if color_scheme is None:
-        color_scheme = ['#66CCEE', '#EE6677', '#4477AA', '#228833', '#CCBB44', '#AA3377']  
+        color_scheme = ['#66CCEE', '#EE6677', '#4477AA', '#228833', '#CCBB44', '#AA3377']
 
     # create cohorts list for adding cohorts from path endings
     cohorts = []
@@ -128,11 +130,11 @@ def plot_bubble(
     fig_width = 40
     fig_height = 15
     fig, axes = plt.subplots(1, 2, figsize=(fig_width, fig_height))
-    fontsize=20
-    plt.suptitle(title, ha="center", va="top", fontsize=fontsize*1.5)
+    fontsize = 20
+    plt.suptitle(title, ha="center", va="top", fontsize=fontsize * 1.5)
     plt.subplots_adjust(top=0.95)
     # settings
-    #sns.set(font_scale=2)
+    # sns.set(font_scale=2)
     fig.canvas.draw()
 
     # empty list for the annotations in the zoom
@@ -196,9 +198,9 @@ def plot_bubble(
         ax.set_aspect("equal", "box")
         ax.set_xlabel("Median AUROC for external validation cohorts")
         ax.set_ylabel(f"Median AUROC for internal validation cohort: {internal_cohort_name}")
-    
+
         for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] + ax.get_xticklabels() + ax.get_yticklabels()):
-            item.set_fontsize(fontsize)  
+            item.set_fontsize(fontsize)
 
     # create zoom patch for highlighting zoom region in ax1
     zoom = ptch.Rectangle(
@@ -295,6 +297,7 @@ def plot_bubble(
     plt.savefig(f'{args.outpath}/{internal_cohort_name}.svg')
     plt.show()
 
+
 def add_multi_cohort_scatter_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument(
         "--data-path-internal",
@@ -328,8 +331,8 @@ def add_multi_cohort_scatter_args(parser: argparse.ArgumentParser) -> argparse.A
         help="Title of figure.",
     )
     parser.add_argument(
-        "--outpath", 
-        required=True, 
+        "--outpath",
+        required=True,
         type=Path,
         help="Path to save the `.svg` to."
     )
@@ -342,17 +345,18 @@ def add_multi_cohort_scatter_args(parser: argparse.ArgumentParser) -> argparse.A
 
     return parser
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create multi cohort scatterplot.")
     add_multi_cohort_scatter_args(parser)
     args = parser.parse_args()
 
     plot_bubble(
-        data_path_internal = args.data_path_internal,
-        data_paths_external = args.data_paths_external,
-        title = args.title,
-        internal_cohort_name = args.internal_cohort_name,
+        data_path_internal=args.data_path_internal,
+        data_paths_external=args.data_paths_external,
+        title=args.title,
+        internal_cohort_name=args.internal_cohort_name,
         format=args.format,
         color_scheme=args.color_scheme,
         outpath=args.outpath
-        )
+    )

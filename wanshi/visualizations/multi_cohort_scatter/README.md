@@ -15,5 +15,7 @@ python -m wanshi.visualizations.multi_cohort_scatter.multi_cohort_scatter \
     --outpath="/home/marcogustav/Documents/projects/gecco/results/crossval/figures/" 
 ```
 
-`data-path-internal` includes subdirectories with the name of `--format` - e.g. `raw` and `norm`. These subdirectories contain directories for each target. Each of the target directories contains a directory for each fold with the prediction.csv.
+`data-path-internal` includes subdirectories with the name of `--format` - e.g. `raw` and `norm`. These subdirectories
+contain directories for each target. Each of the target directories contains a directory for each fold with the
+prediction.csv.
 The same applies to each `data-paths-external` directory.
