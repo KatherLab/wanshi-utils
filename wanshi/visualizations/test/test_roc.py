@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-__author__ = 'Jeff'
-__copyright__ = 'Copyright 2023, Kather Lab'
-__license__ = 'MIT'
-__version__ = '0.1.0'
-__maintainer__ = ['Jeff']
-__email__ = 'jiefu.zhu@tu-dresden.de'
+__author__ = "Jeff"
+__copyright__ = "Copyright 2023, Kather Lab"
+__license__ = "MIT"
+__version__ = "0.1.0"
+__maintainer__ = ["Jeff"]
+__email__ = "jiefu.zhu@tu-dresden.de"
 
-from ..roc_curve.roc import *
+from ..roc import *
+from ..roc.__main__ import read_table
 import pytest
 
 # pytest for read_table()
@@ -31,5 +32,3 @@ def test_read_table():
         # test unknown filetype
         with pytest.raises(ValueError):
             read_table(tmpdir / "test.txt")
-
-
