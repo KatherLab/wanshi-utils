@@ -1,12 +1,13 @@
-author = "Marco Gustav"
-copyright = "Copyright 2023, Kather Lab"
-license = "MIT"
-version = "0.1.0"
-maintainer = ["Marco Gustav", "Jeff"]
-email = "marco.gustav@tu-dresden.de"
+# !/usr/bin/env python3
+
+__author__ = "Marco Gustav"
+__copyright__ = "Copyright 2023, Kather Lab"
+__license__ = "MIT"
+__version__ = "0.1.0"
+__maintainer__ = ["Marco Gustav", "Jeff"]
+__email__ = "marco.gustav@tu-dresden.de"
 
 import argparse
-# !/usr/bin/env python3
 import os
 from pathlib import Path
 from typing import List
