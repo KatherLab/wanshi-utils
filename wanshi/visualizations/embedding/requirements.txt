@@ -1,0 +1,10 @@
+fastai==2.7.10
+h5py==3.6.0
+matplotlib==3.5.1
+numpy==1.22.4
+pandas==1.4.4
+Pillow==9.4.0
+scikit_learn==1.2.0
+seaborn==0.11.2
+torch==1.13.0+cu116
+torchvision==0.14.0+cu116
