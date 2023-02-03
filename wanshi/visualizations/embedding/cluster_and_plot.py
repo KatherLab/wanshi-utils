@@ -77,7 +77,7 @@ class DataClustering:
         print('Done.')
 
     # TODO: set size and marker as user input
-    def plot_scatter(self):
+    def plot_scatter(self, plot_name):
         plt.figure(figsize=(16, 10))
         n_classes = len(self.df['labels'].unique())
         sns.scatterplot(x='comp-1', y='comp-2', hue=self.df.labels.tolist(),
@@ -85,7 +85,7 @@ class DataClustering:
                         data=self.df, s=1).set(title='T-SNE projection')
         # plt.show()
         self.plot_dir.mkdir(exist_ok=True)
-        path_scatter_dots = self.plot_dir / 'plot_scatter_dots_label_sample.png'
+        path_scatter_dots = self.plot_dir / plot_name + 'plot_scatter_dots_label_sample.png'
         plt.savefig(path_scatter_dots)
 
     def plot_imgs(self):
