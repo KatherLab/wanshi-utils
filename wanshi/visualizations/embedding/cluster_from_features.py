@@ -7,6 +7,8 @@ __version__ = '0.1.0'
 __maintainer__ = ['Jeff']
 __email__ = 'jiefu.zhu@tu-dresden.de'
 
+import argparse
+
 import h5py
 import numpy as np
 import openpyxl
@@ -16,7 +18,6 @@ import pandas as pd
 
 from cluster_and_plot import DataClustering
 
-h5outpath = '/mnt/sda1/feature-visualizations/Xiyue-Wang/'
 # inlude all the files in the folder
 import os
 import glob
@@ -46,11 +47,11 @@ def get_feature_label(patient_name, dict):
 
 
 
-def construct_dataframe(colume = 2):
+def construct_dataframe(file_list, colume = 2):
     X = np.zeros((0, 2048))
     y = np.zeros((0, 1))
 
-    for file in file_list[:2]:
+    for file in file_list:
         #print(file)
         f = h5py.File(file, 'r')
         #print(list(f.keys()))
@@ -101,16 +102,28 @@ def construct_dataframe_perpatient_mean():
         y = np.vstack([y, label_array])
         f.close()
 
-    print(X.shape)
-    print(X)
-    print(y.shape)
+    #print(X.shape)
+    #print(X)
+    #print(y.shape)
     return X, y
 
-X, y = construct_dataframe(colume=2)
-#X, y = construct_dataframe_perpatient_mean()
-dc = DataClustering('out_dir', X, y)
 
-#dc.run_tSNE()
-dc.run_pca()
-dc.plot_scatter()
-#dc.plot_imgs_withinput()
+
+if __name__ == '__main__':
+    # parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--feature_dir', type=str, default='/mnt/sda1/feature-visualizations/Xiyue-Wang/',
+                        help='path to the h5 file')
+
+    args = parser.parse_args()
+    h5_file_list = glob.glob(args.feature_dir + '*.h5')
+    X, y = construct_dataframe(h5_file_list, colume=2)
+    # X, y = construct_dataframe_perpatient_mean()
+    dc = DataClustering('out_dir', X, y)
+
+    dc.run_tSNE()
+    dc.plot_scatter('tSNE_')
+
+    dc.run_pca()
+    dc.plot_scatter('PCA_')
+    # dc.plot_imgs_withinput()
