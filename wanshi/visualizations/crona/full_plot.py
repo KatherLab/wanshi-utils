@@ -50,7 +50,7 @@ pos_list = [x + 0.5 for x in pos_list]
 # Plot rect & text (style1)
 for i in range(int(track1.size)):
     start, end = i, i + 1
-    track1.rect(start, end, fc=ColorCycler())
+    track1.rect(start, end, fc='white', ec="black", lw=1)
 track1.xticks(
     pos_list,
     dict[sector.name],
@@ -116,7 +116,7 @@ for i in (range(0, int(track1.size))):
     else:
         color = '#00ff10'
     track2.rect(start, end, fc=color, ec="black", lw=1)
-    track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white")
+    track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white", adjust_rotation=False)
 track3 = sector.add_track((70, 79))
 year = [2009,2010,2015,2016,2020,2020,2022,2022,2019,2020,2020,2021,2022,2023,2012,2020,2021,2021,2022,2022,2022]
 year_gradient_color_dict = {'2009': '#878bb6', '2010': '#7b7dbd', '2012': '#696ac7','2015': '#5857d1', '2016': '#4e4bd7','2019': '#403cdf', '2020': '#342fe6', '2021': '#2620ee','2022': '#160ff7', '2023': '#0800ff'}
@@ -125,7 +125,7 @@ track3.axis()
 for i in (range(0, int(track1.size))):
     start, end = i, i + 1
     track3.rect(start, end, fc=year_gradient_color_dict[str(year[i])], ec="black", lw=1)
-    track3.text(str(year[i])[2:], (end + start) / 2, size=8, color="white")
+    track3.text(str(year[i])[2:], (end + start) / 2, size=8, color="white",adjust_rotation=False)
 
     #########
 
