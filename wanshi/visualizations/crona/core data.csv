@@ -1,0 +1,38 @@
+cata,name,test,,,,,,,,,,,,,,,,,,,,,,,
+Clinical Rationale,Topic,Predictive AI,Content,Yes,N,Y,Y,Y,Y,Y,N,Y,N,N,P,N,N,N,N,Y,N,N,Y,N,N
+Clinical Rationale,Study Design,"Retrospective vs. prospective, prognostic vs. diagnostic",Content,Partially,Y,Y,Y,Y,N,N,N,Y,N,Y,Y,N,N,Y,N,Y,N,N,N,N,N
+Clinical Rationale,Prediction Problem,"Prediction target, outcome parameters, performance metrics",Content,Yes,Y,Y,Y,Y,Y,Y,N,Y,P,Y,Y,N,N,Y,N,Y,Y,N,Y,P,N
+Clinical Rationale,Clinical Setting,Details on the clinical problem and intended use,Content,No,Y,Y,Y,Y,Y,Y,P,Y,Y,Y,N,N,P,Y,N,Y,Y,N,Y,Y,N
+Clinical Rationale,Rationale,Relation between prediction problem and clinical goal,Content,Yes,Y,Y,P,Y,Y,Y,P,Y,Y,Y,N,N,N,Y,N,Y,P,N,Y,P,N
+Clinical Rationale,Existing AI and Statistical Models,"Performance metrics, level of translation, clinical application",Content,Yes,P,N,Y,Y,N,Y,N,P,N,P,Y,Y,N,N,Y,N,P,N,P,P,Y
+Clinical Rationale,State-of-the-art,Identify state-of-the-art clinical solution and use as a baseline for comparison,Quality,Partially,P,N,P,N,N,N,N,P,P,Y,N,Y,P,N,P,N,N,N,N,N,N
+Data,"Data Sources, Types, and Structure","Original data format and volume, facility details, structured vs. unstructured data",Content,Partially,Y,Y,Y,Y,P,P,Y,Y,P,Y,Y,P,P,Y,N,Y,Y,Y,Y,Y,Y
+Data,Data Selection,Inclusion and exclusion criteria at the level of data and participants,Content,Partially,Y,Y,Y,Y,Y,Y,N,Y,P,N,N,N,P,P,N,Y,Y,N,Y,N,Y
+Data,Data Preprocessing,"Data transformation, handling of missing data and outliers",Content,Yes,Y,Y,Y,Y,Y,Y,Y,Y,P,Y,Y,N,P,Y,N,Y,Y,N,P,Y,Y
+Data,Labeling of Input Data,"Clinical outcome vs. expert rating, number and expertise of labellers","Content, Quality",Partially,Y,Y,N,N,Y,Y,P,Y,Y,N,N,N,P,Y,N,Y,Y,N,Y,N,P
+Data,Rater Variability,Inter- and intrarater variability,Quality,Partially,Y,N,N,N,N,N,N,N,N,N,N,N,N,N,N,Y,N,N,N,N,N
+Data,Data Processing Location,"Specification of data processing location (local vs. cloud, external institutions involved in data processing, data flow)",Content,Partially,N,N,N,N,N,N,N,N,N,N,N,N,Y,N,N,N,N,N,N,Y,N
+Data,De-Identification,Address anonymization/de-identification of data,Quality,Partially,N,Y,N,N,N,N,N,N,N,N,N,N,Y,N,N,Y,Y,N,N,Y,N
+Data,Data Dictionary,Release data dictionary with explanations of variables,Content,Partially,N,N,N,N,N,N,N,N,P,N,Y,N,N,N,N,Y,N,N,N,N,N
+Data,Data Leakage,"Independence of training/validation/test data (i.e. do not use evaluation sets for feature selection, preprocessing steps or parameter tuning)",Quality,Yes,N,N,N,N,N,N,N,N,Y,Y,N,Y,N,Y,Y,N,Y,N,Y,N,N
+Data,Representativeness,Training and test data should be representative of real-world clinical settings,Quality,Yes,P,N,P,N,N,N,N,N,Y,Y,N,Y,P,P,N,N,N,N,Y,P,Y
+Data,Basic Statistics of the Dataset,Distribution of input and outcomes,Content,Partially,Y,Y,Y,Y,N,N,Y,P,Y,N,Y,Y,N,N,N,Y,N,N,Y,N,Y
+Model Training and Validation,Type of Prediction Model,"Type of algorithm, classification vs. regression",Content,Yes,N,Y,Y,Y,Y,Y,N,Y,N,P,Y,Y,N,N,N,Y,Y,Y,Y,N,N
+Model Training and Validation,Model Development,"Identification and removal of redundant independent variables, model training and selection strategy",Content,Yes,P,Y,Y,Y,N,P,Y,P,P,Y,Y,Y,P,P,Y,Y,Y,P,Y,P,P
+Model Training and Validation,Model Validation,"Internal vs. external vs. cross validation, validation metrics",Content,Yes,Y,P,Y,Y,N,N,P,P,P,P,Y,Y,N,P,Y,Y,Y,Y,Y,P,P
+Model Training and Validation,Model Interpretability,Statement on model interpretability,"Content, Quality",Yes,N,N,N,Y,N,N,N,N,Y,N,Y,Y,N,N,N,Y,N,N,Y,N,Y
+Model Training and Validation,Model Performance and Interpretation,"Outcome metrics, confidence intervals",Content,Yes,Y,Y,Y,Y,P,P,Y,Y,Y,P,P,Y,P,N,Y,Y,Y,N,Y,P,P
+Model Training and Validation,Computational Cost,"Model execution time, floating point operations per second",Content,Yes,N,N,N,N,N,N,N,N,N,N,N,Y,N,N,N,N,N,Y,N,N,N
+Model Training and Validation,Statistical Methods,Appropriate methods and significance levels for performance comparison of baseline and proposed model,Quality,Partially,Y,P,Y,N,N,N,N,N,Y,Y,N,Y,N,N,P,Y,P,N,Y,N,Y
+Model Training and Validation,Performance Errors,Identification and analysis of errors,"Content, Quality",Yes,Y,P,Y,N,Y,Y,P,Y,Y,N,P,N,P,N,P,Y,N,N,N,N,P
+Model Training and Validation,Over-/Underfitting,Assessment of the possibility of over-/underfitting (i.e. by reporting indicators such as train vs. test error),Quality,Yes,N,N,N,N,N,N,N,N,Y,N,N,Y,N,N,P,N,N,N,N,N,N
+Critical Appraisal,Clinical Implications and Practical Value,"Potential augmentations of clinical workflows, potential changes in clinical decision making",Content,Partially,Y,Y,Y,Y,Y,Y,Y,Y,Y,N,N,N,Y,N,N,Y,N,N,N,Y,N
+Critical Appraisal,Translation,Details on integration into clinical workflow,Content,Partially,N,Y,Y,N,N,N,N,Y,Y,N,N,N,P,N,N,Y,N,N,Y,Y,N
+Critical Appraisal,Limitations,"Bias, generalizability, interpretation pitfalls",Content,Partially,Y,Y,Y,Y,P,P,P,Y,Y,N,Y,N,P,N,N,Y,N,N,P,N,Y
+Ethics and Reproducibility,Data Publication,Publication of datasets or inclusion of a statement on public availability,Content,Partially,N,Y,Y,N,N,N,N,Y,N,Y,N,Y,N,N,Y,N,N,N,Y,N,Y
+Ethics and Reproducibility,Code Publication,Publication of code or inclusion of a statement on public availability,Content,Yes,N,N,Y,N,Y,Y,N,Y,N,Y,Y,Y,N,N,N,N,N,P,N,N,Y
+Ethics and Reproducibility,AI Intervention Publication,Publication of AI Intervention or inclusion of a statement on public availability,Content,Yes,P,Y,N,N,Y,Y,N,N,N,Y,N,Y,N,N,N,N,N,N,N,N,N
+Ethics and Reproducibility,Future Updates,Details on future software/algorithm updates (i.e. how users will be informed),Content,Partially,P,N,P,N,N,N,N,P,P,N,N,N,P,N,N,N,P,N,Y,Y,N
+Ethics and Reproducibility,Ethical Statement,Details on IRB approval and informed consent procedure,Content,No,Y,N,Y,Y,N,N,N,Y,N,N,N,N,Y,N,N,N,N,N,N,N,N
+Ethics and Reproducibility,Equity and Access,"Statement on equity, diversity and access to AI application","Content, Quality",Yes,N,N,N,N,N,N,N,P,P,N,N,N,Y,N,N,N,N,N,N,N,N
+Ethics and Reproducibility,Legal and regulatory Aspects,Statement on legal and regulatory aspects,Content,Partially,N,N,N,N,N,N,N,N,N,N,N,N,Y,N,N,N,N,N,Y,Y,N
