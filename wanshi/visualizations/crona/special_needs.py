@@ -130,7 +130,7 @@ for i in (range(0, int(track1.size))):
     #track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white", adjust_rotation=False)
 track3 = sector.add_track((70, 79))
 year = [2009,2010,2015,2016,2020,2020,2022,2022,2019,2020,2020,2021,2022,2023,2012,2020,2021,2021,2022,2022,2022]
-year_gradient_color_dict = {'2009': '#878bb6', '2010': '#7b7dbd', '2012': '#696ac7','2015': '#5857d1', '2016': '#4e4bd7','2019': '#403cdf', '2020': '#342fe6', '2021': '#2620ee','2022': '#160ff7', '2023': '#0800ff'}
+year_gradient_color_dict = {'2009': color_year[0], '2010': color_year[0], '2012': color_year[0],'2015': color_year[1], '2016': color_year[1],'2019': color_year[2], '2020': color_year[2], '2021': color_year[2],'2022': color_year[3], '2023': color_year[3]}
 
 track3.axis()
 for i in (range(0, int(track1.size))):
@@ -172,10 +172,10 @@ circos.text(" 03. Year", r=75, color="grey", **text_common_kws)
 
 fig = circos.plotfig()
 ax1 = fig.add_axes([0.9, 0.1, 0.02, 0.2])
-norm = mpl.colors.Normalize(vmin=2009, vmax=2023)
+norm = mpl.colors.Normalize(vmin=2008, vmax=2023)
 cb1 = mpl.colorbar.ColorbarBase(ax1, cmap=mpl.cm.Blues, norm=norm, orientation='vertical')
 cb1.set_label('Year', rotation=0, labelpad=10, loc='top', size=10)
 # add color bar legend to the figure
-
+fig.legend(title="Year", loc="upper right", bbox_to_anchor=(1.1, 1.1))
 fig.legends.append(ax1)
 fig.show()
