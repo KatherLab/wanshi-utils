@@ -170,12 +170,33 @@ circos.text(" 01. Criterion - Level of Consensus", r=95, color="black", **text_c
 circos.text(" 02. Guideline Type", r=85, color="grey", **text_common_kws)
 circos.text(" 03. Year", r=75, color="grey", **text_common_kws)
 
+# circos.text(" META AI ", r=185, color="black", **{'ha':"center", 'va':"center", 'size':18})
+
+
 fig = circos.plotfig()
-ax1 = fig.add_axes([0.9, 0.1, 0.02, 0.2])
+
+colors1 = {'General':color_Guideline_Type[0], 'Subject-specific':color_Guideline_Type[1]}
+labels1 = list(colors1.keys())
+colors2 = {'High':color_Level_of_Consensus[0], 'Mid':color_Level_of_Consensus[1], 'Low':color_Level_of_Consensus[2]}
+labels2 = list(colors2.keys())
+handles1 = [plt.Rectangle((0,0),1,1, color=colors1[label]) for label in labels1]
+handles2 = [plt.Rectangle((0,0),1,1, color=colors2[label]) for label in labels2]
+# plt.legend(handles, labels, loc=[1.,1.],title="Guideline Type", )
+# add another legend to the figure
+# import matplotlib.patches as mpatches
+# blue_patch = mpatches.Patch(color='blue', label='blue legend')
+# plt.legend(handles=[blue_patch])
+ax1 = fig.add_axes([0.85, 0.02, 0.02, 0.2])
+
 norm = mpl.colors.Normalize(vmin=2008, vmax=2023)
 cb1 = mpl.colorbar.ColorbarBase(ax1, cmap=mpl.cm.Blues, norm=norm, orientation='vertical')
 cb1.set_label('Year', rotation=0, labelpad=10, loc='top', size=10)
 # add color bar legend to the figure
-fig.legend(title="Year", loc="upper right", bbox_to_anchor=(1.1, 1.1))
-fig.legends.append(ax1)
+# ax2 = fig.add_axes([0.85, 0.1, 0.02, 0.2], frameon=False, facecolor='g')
+# cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=mpl.cm.Greens, norm=norm, orientation='vertical')
+
+fig.legends.append(plt.legend(handles1, labels1, loc=[-5.,4.3],title="Guideline Type"))
+fig.legends.append(plt.legend(handles2, labels2, loc=[-15.,4.3],title="Level of Consensus"))
+# fig.legends.append([ ['Cold', 'Medium', 'Hot'], ['Cold', 'Medium', 'Hot']])
+
 fig.show()
