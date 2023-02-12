@@ -4,11 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import met_brewer
-from wanshi.visualizations.crona.met_brewer.palettes import met_brew
+from decide_my_facourite_color import *
 
-colors = met_brew(name="Java", brew_type="continuous")
-for i in colors:
-    print(i)
 csv_path = 'META-AI_ Guideline Items - Tabellenblatt.csv'
 core_data = 'core data.csv'
 import csv
@@ -41,7 +38,7 @@ guide_line_group = {'Clinical Rationale': 7, 'Data': 11, 'Model Training and Val
 df_core_data = pd.read_csv(core_data, sep=',', header=0, index_col=0, encoding='utf-8', engine='python', error_bad_lines=False)
 first_column_core = df_core_data.iloc[:,0]
 cata_count = df_core_data.groupby('cata')['test'].count()
-print(cata_count)
+#print(cata_count)
 
 
 ##########################
@@ -81,10 +78,10 @@ first_column_core_enu = enumerate(first_column_core)
 count2 = 0
 for key,value in guide_line_group.items():
 
-    print(count2)
+    #print(count2)
     #print(value)
     end = count + value
-    track2.rect(count, end, fc=colors[count2])
+    track2.rect(count, end, fc=color_guide_line_group[count2])
     track2.text(str(key), (count + end) / 2, color="white", adjust_rotation=True, **{'size':6, 'va':"center"})
     count2 += 1
     count = end
@@ -112,13 +109,13 @@ track1.xticks(
 )
 for i in range(8):
     start, end = i, i + 1
-    track1.rect(start, end, fc='red', ec="black", lw=1)
+    track1.rect(start, end, fc=color_Level_of_Consensus[0], ec="black", lw=1)
 for i in range(6):
     start, end = i, i + 1
-    track1.rect(start+8, end+8, fc='orange', ec="black", lw=1)
+    track1.rect(start+8, end+8, fc=color_Level_of_Consensus[1], ec="black", lw=1)
 for i in range(7):
     start, end = i, i + 1
-    track1.rect(start+14, end+14, fc='yellow', ec="black", lw=1)
+    track1.rect(start+14, end+14, fc=color_Level_of_Consensus[2], ec="black", lw=1)
 # Plot rect & text (style2)
 track2 = sector.add_track((80, 89))
 track2.axis()
@@ -126,9 +123,9 @@ guideline_list = ['G','G','G','G','G','G','S','G','G','G','S','G','S','S','G','S
 for i in (range(0, int(track1.size))):
     start, end = i, i + 1
     if guideline_list[i] == 'G':
-        color = '#0bb50e'
+        color = color_Guideline_Type[0]
     else:
-        color = '#00ff10'
+        color = color_Guideline_Type[1]
     track2.rect(start, end, fc=color, ec="black", lw=1)
     #track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white", adjust_rotation=False)
 track3 = sector.add_track((70, 79))
@@ -163,9 +160,9 @@ for cri in range(len(all_critirian_names)):
 
 for i in range(len(tuple_listY)):
     #print(("Guideline Item", tuple_listY[i][0], tuple_listY[i][0]+1), ("Critirian", tuple_listY[i][1], tuple_listY[i][1]+1))
-    circos.link(("Guideline Item", tuple_listY[i][0], tuple_listY[i][0]+1), ("Critirian", tuple_listY[i][1], tuple_listY[i][1]+1),alpha=0.1, color="purple", r1=90, r2=70)
+    circos.link(("Guideline Item", tuple_listY[i][0], tuple_listY[i][0]+1), ("Critirian", tuple_listY[i][1], tuple_listY[i][1]+1),alpha=0.1, color=color_link, r1=90, r2=70)
 for i in range(len(tuple_listP)):
-    circos.link(("Guideline Item", tuple_listP[i][0], tuple_listP[i][0]+1), ("Critirian", tuple_listP[i][1], tuple_listP[i][1]+1),alpha=0.03, color="purple", r1=90, r2=70)
+    circos.link(("Guideline Item", tuple_listP[i][0], tuple_listP[i][0]+1), ("Critirian", tuple_listP[i][1], tuple_listP[i][1]+1),alpha=0.03, color=color_link, r1=90, r2=70)
 
 
 text_common_kws = {'ha':"left", 'va':"center", 'size':8}
