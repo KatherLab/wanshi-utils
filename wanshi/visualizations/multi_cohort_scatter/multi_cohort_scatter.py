@@ -62,7 +62,14 @@ def plot_bubble(
     # TODO: add colormap input
     # color scheme
     if color_scheme is None:
-        color_scheme = ['#66CCEE', '#EE6677', '#4477AA', '#228833', '#CCBB44', '#AA3377']
+        color_scheme = [
+            "#66CCEE",
+            "#EE6677",
+            "#4477AA",
+            "#228833",
+            "#CCBB44",
+            "#AA3377",
+        ]
 
     # create cohorts list for adding cohorts from path endings
     cohorts = []
@@ -184,7 +191,7 @@ def plot_bubble(
                             alpha=0.5,
                         ),
                         rotation=0,
-                        fontsize=fontsize
+                        fontsize=fontsize,
                     )
                 )
             else:
@@ -198,9 +205,15 @@ def plot_bubble(
         ax.grid(visible=True, axis="both")
         ax.set_aspect("equal", "box")
         ax.set_xlabel("Median AUROC for external validation cohorts")
-        ax.set_ylabel(f"Median AUROC for internal validation cohort: {internal_cohort_name}")
+        ax.set_ylabel(
+            f"Median AUROC for internal validation cohort: {internal_cohort_name}"
+        )
 
-        for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] + ax.get_xticklabels() + ax.get_yticklabels()):
+        for item in (
+            [ax.title, ax.xaxis.label, ax.yaxis.label]
+            + ax.get_xticklabels()
+            + ax.get_yticklabels()
+        ):
             item.set_fontsize(fontsize)
 
     # create zoom patch for highlighting zoom region in ax1
@@ -226,7 +239,7 @@ def plot_bubble(
     ax1.annotate(
         f"{ax2.get_title()}",
         xy=(zoom_x_upper_thresh - 0.03, zoom_y_lower_thresh + 0.01),
-        fontsize=fontsize
+        fontsize=fontsize,
     )
 
     # ax2
@@ -260,7 +273,7 @@ def plot_bubble(
         loc="upper left",
         borderaxespad=0.0,
         fancybox=True,
-        fontsize=fontsize
+        fontsize=fontsize,
     )
 
     # get height of top legend to align second legend below it
@@ -286,7 +299,7 @@ def plot_bubble(
         handlelength=0,
         handletextpad=0,
         fancybox=True,
-        fontsize=fontsize
+        fontsize=fontsize,
     )
 
     for item in leg2.legendHandles:
@@ -295,11 +308,13 @@ def plot_bubble(
     # final aesthetics
     fig.subplots_adjust(right=0.75, left=0.08, bottom=-0.1, top=1.1)
 
-    plt.savefig(f'{args.outpath}/{internal_cohort_name}.svg')
+    plt.savefig(f"{args.outpath}/{internal_cohort_name}.svg")
     plt.show()
 
 
-def add_multi_cohort_scatter_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+def add_multi_cohort_scatter_args(
+    parser: argparse.ArgumentParser,
+) -> argparse.ArgumentParser:
     parser.add_argument(
         "--data-path-internal",
         required=True,
@@ -332,10 +347,7 @@ def add_multi_cohort_scatter_args(parser: argparse.ArgumentParser) -> argparse.A
         help="Title of figure.",
     )
     parser.add_argument(
-        "--outpath",
-        required=True,
-        type=Path,
-        help="Path to save the `.svg` to."
+        "--outpath", required=True, type=Path, help="Path to save the `.svg` to."
     )
     parser.add_argument(
         "--color-scheme",
@@ -359,5 +371,5 @@ if __name__ == "__main__":
         internal_cohort_name=args.internal_cohort_name,
         format=args.format,
         color_scheme=args.color_scheme,
-        outpath=args.outpath
+        outpath=args.outpath,
     )

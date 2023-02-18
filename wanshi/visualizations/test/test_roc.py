@@ -7,15 +7,18 @@ __version__ = "0.1.0"
 __maintainer__ = ["Jeff"]
 __email__ = "jiefu.zhu@tu-dresden.de"
 
+import pytest
+
 from ..roc import *
 from ..roc.__main__ import read_table
-import pytest
+
 
 # pytest for read_table()
 def test_read_table():
-    import pandas as pd
     from pathlib import Path
     from tempfile import TemporaryDirectory
+
+    import pandas as pd
 
     with TemporaryDirectory() as tmpdir:
         tmpdir = Path(tmpdir)

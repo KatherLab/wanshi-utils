@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Calculate statistics for deployments on categorical targets."""
 
-from pathlib import Path
 from argparse import ArgumentParser
+from pathlib import Path
 
 import pandas as pd
 import scipy.stats as st
 from sklearn import metrics
 from tqdm import trange
-
 
 __author__ = "Marko van Treeck"
 __copyright__ = "Copyright 2022, Kather Lab"

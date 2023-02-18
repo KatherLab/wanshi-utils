@@ -2,14 +2,14 @@
 from argparse import ArgumentParser
 from pathlib import Path
 
-from matplotlib import pyplot as plt
 import pandas as pd
+from matplotlib import pyplot as plt
 
 from . import (
-    split_preds_into_groups,
     plot_decorated_rocs_for_subtypes,
-    plot_single_decorated_roc_curve,
     plot_multiple_decorated_roc_curves,
+    plot_single_decorated_roc_curve,
+    split_preds_into_groups,
 )
 
 

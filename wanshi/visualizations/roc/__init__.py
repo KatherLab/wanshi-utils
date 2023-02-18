@@ -1,15 +1,15 @@
-from collections import namedtuple
 import logging
-from typing import Sequence, Optional, Tuple, Mapping, List
+from collections import namedtuple
+from typing import List, Mapping, Optional, Sequence, Tuple
 
-from matplotlib import pyplot as plt
-from matplotlib.collections import LineCollection
-from matplotlib.colors import Colormap
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
 import scipy.stats as st
-from sklearn.metrics import roc_curve, roc_auc_score
+from matplotlib import pyplot as plt
+from matplotlib.collections import LineCollection
+from matplotlib.colors import Colormap
+from sklearn.metrics import roc_auc_score, roc_curve
 from tqdm import trange
 
 all = [
