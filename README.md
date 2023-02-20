@@ -36,7 +36,7 @@ $ python3 -m pip install git+https://github.com/KatherLab/wanshi-utils.git
 ```
 ## Gallery
 ### Circular plots 
-![img_1.png](circular.png)
+![img.png](wanshi%2Fvisualizations%2Fcircular%2Fassets%2Fimg.png)
 ### Multi cohort scatter plots [link](wanshi%2Fvisualizations%2Fmulti_cohort_scatter)
 ![multicohort-multitarget-plot.png](wanshi%2Fvisualizations%2Fmulti_cohort_scatter%2Fassets%2Fmulticohort-multitarget-plot.png)
 ### ROC plots [link](wanshi%2Fvisualizations%2Froc)
