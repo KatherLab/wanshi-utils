@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -17,9 +18,10 @@ def add_roc_curve_args(parser: ArgumentParser) -> ArgumentParser:
     parser.add_argument(
         "pred_csvs",
         metavar="PREDS_CSV",
-        nargs="+",
+        nargs="*",
         type=Path,
         help="Predictions to create ROC curves for.",
+        default=[sys.stdin],
     )
     parser.add_argument(
         "--target-label",
@@ -90,15 +92,12 @@ def add_roc_curve_args(parser: ArgumentParser) -> ArgumentParser:
     return parser
 
 
-def read_table(path: Path) -> pd.DataFrame:
+def read_table(file) -> pd.DataFrame:
     """Loads a dataframe from a file."""
-    match path.suffix:
-        case ".xlsx":
-            return pd.read_excel(path)
-        case ".csv":
-            return pd.read_csv(path)
-        case suffix:
-            raise ValueError("unknown filetype!", suffix)
+    if isinstance(file, Path) and file.suffix == ".xlsx":
+        return pd.read_excel(file)
+    else:
+        return pd.read_csv(file)
 
 
 if __name__ == "__main__":
@@ -116,7 +115,7 @@ if __name__ == "__main__":
 
     # read all the patient preds
     # and transform their true / preds columns into np arrays
-    preds_dfs = [pd.read_csv(p, dtype=str) for p in args.pred_csvs]
+    preds_dfs = [read_table(p) for p in args.pred_csvs]
     y_trues = [df[args.target_label] == args.true_label for df in preds_dfs]
     y_preds = [
         pd.to_numeric(df[f"{args.target_label}_{args.true_label}"]) for df in preds_dfs
