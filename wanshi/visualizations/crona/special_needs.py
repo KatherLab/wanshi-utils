@@ -63,6 +63,8 @@ track1.xticks(
     tick_length=0,
     label_margin=2,
     label_orientation="vertical",
+    label_size=font_size,
+
 )
 track1.xticks_by_interval(1, show_label=False)
 
@@ -82,7 +84,7 @@ for key,value in guide_line_group.items():
     #print(value)
     end = count + value
     track2.rect(count, end, fc=color_guide_line_group[count2])
-    track2.text(str(key), (count + end) / 2, color="white", adjust_rotation=True, **{'size':6, 'va':"center"})
+    #track2.text(str(key), (count + end) / 2, color="white", adjust_rotation=True, **{'size':8, 'va':"center"})
     count2 += 1
     count = end
 
@@ -106,6 +108,7 @@ track1.xticks(
     tick_length=0,
     label_margin=2,
     label_orientation="vertical",
+label_size=font_size,
 )
 for i in range(8):
     start, end = i, i + 1
@@ -117,7 +120,7 @@ for i in range(7):
     start, end = i, i + 1
     track1.rect(start+14, end+14, fc=color_Level_of_Consensus[2], ec="black", lw=1)
 # Plot rect & text (style2)
-track2 = sector.add_track((80, 89))
+track2 = sector.add_track((80, 90))
 track2.axis()
 guideline_list = ['G','G','G','G','G','G','S','G','G','G','S','G','S','S','G','S','G','S','S','S','G']
 for i in (range(0, int(track1.size))):
@@ -128,7 +131,7 @@ for i in (range(0, int(track1.size))):
         color = color_Guideline_Type[1]
     track2.rect(start, end, fc=color, ec="black", lw=1)
     #track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white", adjust_rotation=False)
-track3 = sector.add_track((70, 79))
+track3 = sector.add_track((70, 80))
 year = [2009,2010,2015,2016,2020,2020,2022,2022,2019,2020,2020,2021,2022,2023,2012,2020,2021,2021,2022,2022,2022]
 year_gradient_color_dict = {'2009': color_year[0], '2010': color_year[0], '2012': color_year[0],'2015': color_year[1], '2016': color_year[1],'2019': color_year[2], '2020': color_year[2], '2021': color_year[2],'2022': color_year[3], '2023': color_year[3]}
 
@@ -160,15 +163,15 @@ for cri in range(len(all_critirian_names)):
 
 for i in range(len(tuple_listY)):
     #print(("Guideline Item", tuple_listY[i][0], tuple_listY[i][0]+1), ("Critirian", tuple_listY[i][1], tuple_listY[i][1]+1))
-    circos.link(("Guideline Item", tuple_listY[i][0], tuple_listY[i][0]+1), ("Critirian", tuple_listY[i][1], tuple_listY[i][1]+1),alpha=0.1, color=color_link, r1=90, r2=70)
+    circos.link(("Guideline Item", tuple_listY[i][0]+gap, tuple_listY[i][0]+1-gap), ("Critirian", tuple_listY[i][1]+gap, tuple_listY[i][1]+1-gap),alpha=alphaY, color=color_link, r1=90, r2=70)
 for i in range(len(tuple_listP)):
-    circos.link(("Guideline Item", tuple_listP[i][0], tuple_listP[i][0]+1), ("Critirian", tuple_listP[i][1], tuple_listP[i][1]+1),alpha=0.03, color=color_link, r1=90, r2=70)
+    circos.link(("Guideline Item", tuple_listP[i][0]+gap, tuple_listP[i][0]+1-gap), ("Critirian", tuple_listP[i][1]+gap, tuple_listP[i][1]+1-gap),alpha=alphaP, color=color_link, r1=90, r2=70)
 
 
 text_common_kws = {'ha':"left", 'va':"center", 'size':8}
 circos.text(" 01. Criterion - Level of Consensus", r=95, color="black", **text_common_kws)
-circos.text(" 02. Guideline Type", r=85, color="grey", **text_common_kws)
-circos.text(" 03. Year", r=75, color="grey", **text_common_kws)
+circos.text(" 02. Guideline Type", r=85, color="black", **text_common_kws)
+circos.text(" 03. Year", r=75, color="black", **text_common_kws)
 
 # circos.text(" META AI ", r=185, color="black", **{'ha':"center", 'va':"center", 'size':18})
 
@@ -186,17 +189,22 @@ handles2 = [plt.Rectangle((0,0),1,1, color=colors2[label]) for label in labels2]
 # import matplotlib.patches as mpatches
 # blue_patch = mpatches.Patch(color='blue', label='blue legend')
 # plt.legend(handles=[blue_patch])
-ax1 = fig.add_axes([0.85, 0.02, 0.02, 0.2])
+ax1 = fig.add_axes([0.85, 0.88, 0.02, 0.1])
+# fill the ax with gradient blue
+# color_spam4 = mpl.cm.get_cmap('Blues', 16).gradient
 
 norm = mpl.colors.Normalize(vmin=2008, vmax=2023)
-cb1 = mpl.colorbar.ColorbarBase(ax1, cmap=mpl.cm.Blues, norm=norm, orientation='vertical')
+# print(mpl.cm.ScalarMappable.get_clim(cmap = mpl.cm.Blues))
+cmap = (mpl.colors.ListedColormap(color_year)
+        .with_extremes(over='0.25', under='0.75'))
+cb1 = mpl.colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm, orientation='vertical')
 cb1.set_label('Year', rotation=0, labelpad=10, loc='top', size=10)
 # add color bar legend to the figure
 # ax2 = fig.add_axes([0.85, 0.1, 0.02, 0.2], frameon=False, facecolor='g')
 # cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=mpl.cm.Greens, norm=norm, orientation='vertical')
 
-fig.legends.append(plt.legend(handles1, labels1, loc=[-5.,4.3],title="Guideline Type"))
-fig.legends.append(plt.legend(handles2, labels2, loc=[-15.,4.3],title="Level of Consensus"))
+fig.legends.append(plt.legend(handles1, labels1, loc=[-12.,0],title="Guideline Type"))
+fig.legends.append(plt.legend(handles2, labels2, loc=[-20.,0],title="Level of Consensus"))
 # fig.legends.append([ ['Cold', 'Medium', 'Hot'], ['Cold', 'Medium', 'Hot']])
 
 fig.show()
