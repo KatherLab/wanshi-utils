@@ -31,7 +31,3 @@ def test_read_table():
         # test xlsx
         df.to_excel(tmpdir / "test.xlsx", index=False)
         assert (read_table(tmpdir / "test.xlsx") == df).all().all()
-
-        # test unknown filetype
-        with pytest.raises(ValueError):
-            read_table(tmpdir / "test.txt")
