@@ -31,11 +31,11 @@ def add_roc_curve_args(parser: ArgumentParser) -> ArgumentParser:
         help="The target label to calculate the ROC for.",
     )
     parser.add_argument(
-        "--true-label",
-        metavar="LABEL",
+        "--true-class",
+        metavar="CLASS",
         required=True,
         type=str,
-        help="The target label to calculate the ROC for.",
+        help="The class to consider as positive for the ROC.",
     )
     parser.add_argument(
         "-o",
@@ -115,7 +115,10 @@ if __name__ == "__main__":
 
     # read all the patient preds
     # and transform their true / preds columns into np arrays
-    preds_dfs = [read_table(p) for p in args.pred_csvs]
+    preds_dfs = [
+        pd.read_csv(p, dtype={f"{args.target_label}": str, "pred": str})
+        for p in args.pred_csvs
+    ]
     y_trues = [df[args.target_label] == args.true_label for df in preds_dfs]
     y_preds = [
         pd.to_numeric(df[f"{args.target_label}_{args.true_label}"]) for df in preds_dfs
