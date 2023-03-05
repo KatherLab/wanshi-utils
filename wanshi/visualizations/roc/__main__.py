@@ -119,9 +119,9 @@ if __name__ == "__main__":
         pd.read_csv(p, dtype={f"{args.target_label}": str, "pred": str})
         for p in args.pred_csvs
     ]
-    y_trues = [df[args.target_label] == args.true_label for df in preds_dfs]
+    y_trues = [df[args.target_label] == args.true_class for df in preds_dfs]
     y_preds = [
-        pd.to_numeric(df[f"{args.target_label}_{args.true_label}"]) for df in preds_dfs
+        pd.to_numeric(df[f"{args.target_label}_{args.true_class}"]) for df in preds_dfs
     ]
 
     roc_curve_figure_aspect_ratio = 1.08
@@ -142,7 +142,7 @@ if __name__ == "__main__":
                 preds_df=preds_dfs[0],
                 clini_df=read_table(args.clini_table),
                 target_label=args.target_label,
-                true_label=args.true_label,
+                true_class=args.true_class,
                 subgroup_label=args.subgroup_label,
             )
 
@@ -150,7 +150,7 @@ if __name__ == "__main__":
                 ax,
                 groups,
                 target_label=args.target_label,
-                true_label=args.true_label,
+                true_class=args.true_class,
                 subgroup_label=args.subgroup_label,
                 subgroups=args.subgroups,
                 n_bootstrap_samples=args.n_bootstrap_samples,
@@ -160,7 +160,7 @@ if __name__ == "__main__":
                 ax,
                 y_trues[0],
                 y_preds[0],
-                title=f"{args.target_label} = {args.true_label}",
+                title=f"{args.target_label} = {args.true_class}",
                 n_bootstrap_samples=args.n_bootstrap_samples,
                 threshold_cmap=args.threshold_cmap,
             )
@@ -170,7 +170,7 @@ if __name__ == "__main__":
             ax,
             y_trues,
             y_preds,
-            title=f"{args.target_label} = {args.true_label}",
+            title=f"{args.target_label} = {args.true_class}",
             n_bootstrap_samples=args.n_bootstrap_samples,
         )
 
