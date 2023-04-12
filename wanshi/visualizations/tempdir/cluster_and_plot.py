@@ -66,6 +66,7 @@ class DataClustering:
         self.df['comp-2'] = X_2d[:, 1]
         print('Done.')
         return X_2d
+
     def get_feature_label(self, X_2d, y):
         self.df2 = pd.DataFrame()
         self.df2['labels'] = y.T.reshape(-1)
