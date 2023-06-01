@@ -3,7 +3,7 @@ from wanshi.visualizations.crona.met_brewer.palettes import met_brew
 color_spam = met_brew(name="Hokusai3", n = 5, brew_type="continuous")
 color_spam2 = met_brew(name="Hiroshige", n = 10, brew_type="continuous")
 color_spam3 = met_brew(name="Hiroshige", n = 5, brew_type="continuous")
-color_spam4 = met_brew(name="Hokusai2", n = 5, brew_type="continuous")
+color_spam4 = met_brew(name="Hokusai2", n = 9, brew_type="continuous")
 
 color_Level_of_Consensus = [color_spam[2], color_spam[1], color_spam[0]]
 

@@ -6,7 +6,7 @@ import matplotlib as mpl
 import met_brewer
 from decide_my_facourite_color import *
 
-csv_path = 'META-AI_ Guideline Items - Tabellenblatt.csv'
+csv_path = 'META-AI_ Guideline Items - Tabellenblatt1.csv'
 core_data = 'core data.csv'
 import csv
 
@@ -16,10 +16,10 @@ df = pd.read_csv(csv_path, sep=',', header=0, index_col=0)
 first_row = df.iloc[0]
 # get the first column
 first_column = df.iloc[:,0]
-high_critirian_names = df.columns.values[4:12]
-medium_critirian_names = df.columns.values[15:21]
+high_critirian_names = df.columns.values[4:11]
+medium_critirian_names = df.columns.values[14:20]
 
-low_critirian_names = df.columns.values[24:31]
+low_critirian_names = df.columns.values[23:30]
 all_critirian_names = np.concatenate((high_critirian_names, medium_critirian_names, low_critirian_names))
 
 #print(all_critirian_names)
@@ -30,12 +30,12 @@ item_names = [x for x in item_names if str(x) != 'nan']
 #print(item_names)
 #print(first_row.keys())
 sectors = {"Guideline Item": len(item_names), "Critirian": len(all_critirian_names)}
-dict = {"Guideline Item": (item_names), "Critirian": (all_critirian_names)}
+dict_ = {"Guideline Item": (item_names), "Critirian": (all_critirian_names)}
 from pycirclize import Circos
 from pycirclize.utils import ColorCycler
 circos = Circos(sectors, space=5, start=40, end=360, endspace=False)
 guide_line_group = {'Clinical Rationale': 7, 'Data': 11, 'Model Training and Validation': 9, 'Critical Appraisal': 3, 'Ethics and Reproducibility': 7}
-df_core_data = pd.read_csv(core_data, sep=',', header=0, index_col=0, encoding='utf-8', engine='python', error_bad_lines=False)
+df_core_data = pd.read_csv(core_data, sep=',', header=0, index_col=0, encoding='utf-8', engine='python')
 first_column_core = df_core_data.iloc[:,0]
 cata_count = df_core_data.groupby('cata')['test'].count()
 #print(cata_count)
@@ -56,9 +56,16 @@ pos_list = [x + 0.5 for x in pos_list]
 for i in range(int(track1.size)):
     start, end = i, i + 1
     track1.rect(start, end, fc='white', ec="black", lw=1)
+# Assume dict is the list of dictionaries and sector.name is the index we are interested in
+original_dict = dict_[sector.name]
+
+# Using reversed() function and dictionary comprehension
+reversed_list = original_dict[::-1]
+
+
 track1.xticks(
     pos_list,
-    dict[sector.name],
+    reversed_list,
     outer=True,
     tick_length=0,
     label_margin=2,
@@ -69,7 +76,7 @@ track1.xticks(
 track1.xticks_by_interval(1, show_label=False)
 
 # Plot rect & text (style2)
-track2 = sector.add_track((90, 100))
+track2 = sector.add_track((80, 100))
 for i in range(int(track2.size)):
     start, end = i, i + 1
     track2.rect(start, end, ec="white", lw=1)
@@ -77,16 +84,24 @@ for i in range(int(track2.size)):
 count = 0
 first_column_core_enu = enumerate(first_column_core)
 #print('----------')
+
+items = list(guide_line_group.items())
+#revert guide_line_group.items()
+items.reverse()
 count2 = 0
-for key,value in guide_line_group.items():
+
+for key,value in items:
 
     #print(count2)
     #print(value)
     end = count + value
-    track2.rect(count, end, fc=color_guide_line_group[count2])
+    # Access the color_guide_line_group list in reverse
+    inverse_index = len(color_guide_line_group) - count2 - 1
+    track2.rect(count, end, fc=color_guide_line_group[inverse_index])
     #track2.text(str(key), (count + end) / 2, color="white", adjust_rotation=True, **{'size':8, 'va':"center"})
     count2 += 1
     count = end
+
 
 ##################
 sector = circos.sectors[1]
@@ -103,26 +118,29 @@ pos_list = [x + 0.5 for x in pos_list]
 
 track1.xticks(
     pos_list,
-    dict[sector.name],
+    dict_[sector.name],
     outer=True,
     tick_length=0,
     label_margin=2,
     label_orientation="vertical",
 label_size=font_size,
 )
-for i in range(8):
+for i in range(7):
     start, end = i, i + 1
     track1.rect(start, end, fc=color_Level_of_Consensus[0], ec="black", lw=1)
 for i in range(6):
     start, end = i, i + 1
-    track1.rect(start+8, end+8, fc=color_Level_of_Consensus[1], ec="black", lw=1)
+    track1.rect(start+7, end+7, fc=color_Level_of_Consensus[1], ec="black", lw=1)
 for i in range(7):
     start, end = i, i + 1
-    track1.rect(start+14, end+14, fc=color_Level_of_Consensus[2], ec="black", lw=1)
+    track1.rect(start+13, end+13, fc=color_Level_of_Consensus[2], ec="black", lw=1)
 # Plot rect & text (style2)
 track2 = sector.add_track((80, 90))
 track2.axis()
-guideline_list = ['G','G','G','G','G','G','S','G','G','G','S','G','S','S','G','S','G','S','S','S','G']
+guideline_list = ['G','G','G','G','G','S','G','G','G','S','G','S','S','G','S','S','S','S','S','G']
+print(len(guideline_list))
+from collections import OrderedDict
+
 for i in (range(0, int(track1.size))):
     start, end = i, i + 1
     if guideline_list[i] == 'G':
@@ -132,13 +150,19 @@ for i in (range(0, int(track1.size))):
     track2.rect(start, end, fc=color, ec="black", lw=1)
     #track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white", adjust_rotation=False)
 track3 = sector.add_track((70, 80))
-year = [2009,2010,2015,2016,2020,2020,2022,2022,2019,2020,2020,2021,2022,2023,2012,2020,2021,2021,2022,2022,2022]
-year_gradient_color_dict = {'2009': color_year[0], '2010': color_year[0], '2012': color_year[0],'2015': color_year[1], '2016': color_year[1],'2019': color_year[2], '2020': color_year[2], '2021': color_year[2],'2022': color_year[3], '2023': color_year[3]}
+year = [2009,2015,2016,2020,2020,2022,2022,2019,2020,2020,2021,2022,2023,2012,2020,2021,2021,2022,2022,2022]
+unique_years = sorted(set(year))
+print(len(unique_years))
+# Distribute color_year evenly across the unique years
+color_mapping = [(yr, color_year[i % len(color_year)]) for i, yr in enumerate(unique_years)]
+
+year_gradient_color_dict = dict(color_mapping)
 
 track3.axis()
 for i in (range(0, int(track1.size))):
     start, end = i, i + 1
-    track3.rect(start, end, fc=year_gradient_color_dict[str(year[i])], ec="black", lw=1)
+    track3.rect(start, end, fc=year_gradient_color_dict[year[i]], ec="black", lw=1)
+
     #track3.text(str(year[i])[2:], (end + start) / 2, size=8, color="white",adjust_rotation=False)
 
     #########
@@ -169,9 +193,9 @@ for i in range(len(tuple_listP)):
 
 
 text_common_kws = {'ha':"left", 'va':"center", 'size':8}
-circos.text(" 01. Criterion - Level of Consensus", r=95, color="black", **text_common_kws)
-circos.text(" 02. Guideline Type", r=85, color="black", **text_common_kws)
-circos.text(" 03. Year", r=75, color="black", **text_common_kws)
+circos.text(" Consensus Process", r=95, color="black", **text_common_kws, weight="bold")
+circos.text(" Guideline Type", r=85, color="black", **text_common_kws, weight="bold")
+circos.text(" Year of Publication", r=75, color="black", **text_common_kws, weight="bold")
 
 # circos.text(" META AI ", r=185, color="black", **{'ha':"center", 'va':"center", 'size':18})
 
@@ -198,7 +222,7 @@ norm = mpl.colors.Normalize(vmin=2008, vmax=2023)
 cmap = (mpl.colors.ListedColormap(color_year)
         .with_extremes(over='0.25', under='0.75'))
 cb1 = mpl.colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm, orientation='vertical')
-cb1.set_label('Year', rotation=0, labelpad=10, loc='top', size=10)
+#cb1.set_label('Year', rotation=0, labelpad=10, loc='top', size=10)
 # add color bar legend to the figure
 # ax2 = fig.add_axes([0.85, 0.1, 0.02, 0.2], frameon=False, facecolor='g')
 # cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=mpl.cm.Greens, norm=norm, orientation='vertical')

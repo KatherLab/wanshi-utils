@@ -1,0 +1,47 @@
+,Guideline Item,Description (specification and/or example content),Item type,AI-specific item?,STARE-HI,TRIPOD,Luo et al.,CONSORT-AI,SPIRIT-AI,CLEAR Derm,DECIDE-AI,,% Item included in high-level consensus guidelines (Y/P),,Good ML Practice,MI-CLAIM,PRIME,DOME,Shen,Hatt et al.,,% Item included in intermediate-level consensus guidelines (Y/P),,Vihinen,CLAIM,PIECES,Zukotynski et al.,Jones et al.,R-AI-DIOLOGY,Volovici et al.,,% Item included in low-level consensus guidelines (Y/P),,% Item included in all guidelines (Y/P)
+Year,,,,,2009,2015,2016,2020,2020,2022,2022,,,,2019,2020,2020,2021,2022,2023,,,,2012,2020,2021,2021,2022,2022,2022,,,,
+Inclusion Process,,,,,"""+""",%,*,*,*,*,*,,,,"""+""",*,*,*,*,#,,,,*,#,#,*,*,*,#,,,,
+Guideline Type,,,,,G,G,G,G,G,S,G,,,,G,G,S,G,S,S,,,,G,S,S,S,S,S,G,,,,
+Level of Consensus,,,,,H,H,H,H,H,H,H,,,,M,M,M,M,M,M,,,,L,L,L,L,L,L,L,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Clinical Rationale,Topic,Predictive AI,Content,Yes,N,Y,Y,Y,Y,N,Y,,"0,75",,N,N,P,N,N,N,,"0,17",,N,Y,N,N,Y,N,N,,"0,29",,"0,43"
+,Study Design,"Retrospective vs. prospective, prognostic vs. diagnostic",Content,Partially,Y,Y,Y,N,N,N,Y,,"0,63",,N,Y,Y,N,N,Y,,"0,50",,N,Y,N,N,N,N,N,,"0,14",,"0,43"
+,Prediction Problem,"Prediction target, outcome parameters, performance metrics",Content,Yes,Y,Y,Y,Y,Y,N,Y,,"0,88",,P,Y,Y,N,N,Y,,"0,67",,N,Y,Y,N,Y,P,N,,"0,57",,"0,71"
+,Clinical Setting,Details on the clinical problem and intended use,Content,No,Y,Y,Y,Y,Y,P/N,Y,,"1,00",,Y,Y,N,N,P,Y,,"0,67",,N,Y,Y,N,Y,Y,N,,"0,57",,"0,76"
+,Rationale,Relation between prediction problem and clinical goal,Content,Yes,Y,P,Y,Y,Y,P/Y,Y,,"1,00",,Y,Y,N,N,N,Y,,"0,50",,N,Y,P,N,Y,P,N,,"0,57",,"0,71"
+,Existing AI and Statistical Models,"Performance metrics, level of translation, clinical application",Content,Yes,P,Y,Y,N,Y,N,P/Y,,"0,75",,N,P,Y,Y,N,N,,"0,50",,Y,N,P,N,P,P,Y,,"0,71",,"0,67"
+,State-of-the-art,Identify state-of-the-art clinical solution and use as a baseline for comparison,Quality,Partially,P,P,N,N,N,N,P/Y,,"0,50",,P,Y,N,Y,P,N,,"0,67",,P,N,N,N,N,N,N,,"0,14",,"0,43"
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Data,"Data Sources, Types, and Structure","Original data format and volume, facility details, structured vs. unstructured data",Content,Partially,Y,Y,Y,P/N,P/Y,Y,Y,,"1,00",,P,Y,Y,P,P,Y,,"1,00",,N,Y,Y,Y,Y,Y,Y,,"0,86",,"0,95"
+,Data Selection,Inclusion and exclusion criteria at the level of data and participants,Content,Partially,Y,Y,Y,Y,Y,N,Y,,"0,88",,P,N,N,N,P,P,,"0,50",,N,Y,Y,N,Y,N,Y,,"0,57",,"0,67"
+,Data Preprocessing,"Data transformation, handling of missing data and outliers",Content,Yes,Y,Y,Y,Y,Y,Y,Y,,"1,00",,P,Y,Y,N,P,Y,,"0,83",,N,Y,Y,N,P,Y,Y,,"0,71",,"0,86"
+,Labeling of Input Data,"Clinical outcome vs. expert rating, number and expertise of labellers","Content, Quality",Partially,Y,N,N,Y,Y,P/Y,Y,,"0,75",,Y,N,N,N,P,Y,,"0,50",,N,Y,Y,N,Y,N,P,,"0,57",,"0,62"
+,Rater Variability,Inter- and intrarater variability,Quality,Partially,Y,N,N,N,N,N,N,,"0,25",,N,N,N,N,N,N,,"0,00",,N,Y,N,N,N,N,N,,"0,14",,"0,14"
+,Data Processing Location,"Specification of data processing location (local vs. cloud, external institutions involved in data processing, data flow)",Content,Partially,N,N,N,N,N,N,N,,"0,13",,N,N,N,N,Y,N,,"0,17",,N,N,N,N,N,Y,N,,"0,14",,"0,14"
+,De-Identification,Address anonymization/de-identification of data,Quality,Partially,N,N,N,N,N,N,N,,"0,13",,N,N,N,N,Y,N,,"0,17",,N,Y,Y,N,N,Y,N,,"0,43",,"0,24"
+,Data Dictionary,Release data dictionary with explanations of variables,Content,Partially,N,N,N,N,N,N,N,,"0,13",,P,N,Y,N,N,N,,"0,33",,N,Y,N,N,N,N,N,,"0,14",,"0,19"
+,Data Leakage,"Independence of training/validation/test data (i.e. do not use evaluation sets for feature selection, preprocessing steps or parameter tuning)",Quality,Yes,N,N,N,N,N,N,N,,"0,13",,Y,Y,N,Y,N,Y,,"0,67",,Y,N,Y,N,Y,N,N,,"0,43",,"0,38"
+,Representativeness,Training and test data should be representative of real-world clinical settings,Quality,Yes,P,P/N,N,N,N,N,N,,"0,38",,Y,Y,N,Y,P,P,,"0,83",,N,N,N,N,Y,P,Y,,"0,43",,"0,52"
+,Basic Statistics of the Dataset,Distribution of input and outcomes,Content,Partially,Y,Y,Y,N,N,Y,P/N,,"0,75",,Y,N,Y,Y,N,N,,"0,50",,N,Y,N,N,Y,N,Y,,"0,43",,"0,57"
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Model Training and Validation,Type of Prediction Model,"Type of algorithm, classification vs. regression",Content,Yes,N,Y,Y,Y,Y,N,Y,,"0,75",,N,P,Y,Y,N,N,,"0,50",,N,Y,Y,Y,Y,N,N,,"0,57",,"0,62"
+,Model Development,"Identification and removal of redundant independent variables, model training and selection strategy",Content,Yes,P/N,Y,Y,N,P/N,Y,P,,"0,88",,P,Y,Y,Y,P,P,,"1,00",,Y,Y,Y,P,Y,P,P,,"1,00",,"0,95"
+,Model Validation,"Internal vs. external vs. cross validation, validation metrics",Content,Yes,Y,Y,Y,N,N,P/Y,P/N,,"0,75",,P,P,Y,Y,N,P,,"0,83",,Y,Y,Y,Y,Y,P,P,,"1,00",,"0,86"
+,Model Interpretability,Statement on model interpretability,"Content, Quality",Yes,N,N,Y,N,N,N,N,,"0,25",,Y,N,Y,Y,N,N,,"0,50",,N,Y,N,N,Y,N,Y,,"0,43",,"0,38"
+,Model Performance and Interpretation,"Outcome metrics, confidence intervals",Content,Yes,Y,Y,Y,P/N,P/Y,Y,Y,,"1,00",,Y,P,P,Y,P,N,,"0,83",,Y,Y,Y,N,Y,P,P,,"0,86",,"0,90"
+,Computational Cost,"Model execution time, floating point operations per second",Content,Yes,N,N,N,N,N,N,N,,"0,13",,N,N,N,Y,N,N,,"0,17",,N,N,N,Y,N,N,N,,"0,14",,"0,14"
+,Statistical Methods,Appropriate methods and significance levels for performance comparison of baseline and proposed model,Quality,Partially,Y,Y,N,N,N,N,N,,"0,38",,Y,Y,N,Y,N,N,,"0,50",,P,Y,P,N,Y,N,Y,,"0,71",,"0,52"
+,Performance Errors,Identification and analysis of errors,"Content, Quality",Yes,Y,Y,N,Y,Y,P/Y,Y,,"0,88",,Y,N,P,N,P,N,,"0,50",,P,Y,N,N,N,N,P,,"0,43",,"0,62"
+,Over-/Underfitting,Assessment of the possibility of over-/underfitting (i.e. by reporting indicators such as train vs. test error),Quality,Yes,N,N,N,N,N,N,N,,"0,13",,Y,N,N,Y,N,N,,"0,33",,P,N,N,N,N,N,N,,"0,14",,"0,19"
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Critical Appraisal,Clinical Implications and Practical Value,"Potential augmentations of clinical workflows, potential changes in clinical decision making",Content,Partially,Y,Y,Y,Y,Y,Y,Y,,"1,00",,Y,N,N,N,Y,N,,"0,33",,N,Y,N,N,N,Y,N,,"0,29",,"0,57"
+,Translation,Details on integration into clinical workflow,Content,Partially,N,Y,N,N,N,N,Y,,"0,38",,Y,N,N,N,P,N,,"0,33",,N,Y,N,N,Y,Y,N,,"0,43",,"0,38"
+,Limitations,"Bias, generalizability, interpretation pitfalls",Content,Partially,Y,Y,Y,P/Y,P/N,P/Y,Y,,"1,00",,Y,N,Y,N,P,N,,"0,50",,N,Y,N,N,P,N,Y,,"0,43",,"0,67"
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Ethics and Reproducibility,Data Publication,Publication of datasets or inclusion of a statement on public availability,Content,Partially,N,Y,N,N,N,N,Y,,"0,38",,N,Y,N,Y,N,N,,"0,33",,Y,N,N,N,Y,N,Y,,"0,43",,"0,38"
+,Code Publication,Publication of code or inclusion of a statement on public availability,Content,Yes,N,Y,N,Y,Y,N,Y,,"0,63",,N,Y,Y,Y,N,N,,"0,50",,N,N,N,P,N,N,Y,,"0,29",,"0,48"
+,AI Intervention Publication,Publication of AI Intervention or inclusion of a statement on public availability,Content,Yes,P/N,N,N,Y,Y,N,N,,"0,50",,N,Y,N,Y,N,N,,"0,33",,N,N,N,N,N,N,N,,"0,00",,"0,29"
+,Future Updates,Details on future software/algorithm updates (i.e. how users will be informed),Content,Partially,P/N,P/N,N,N,N,N,P/N,,"0,50",,P,N,N,N,P,N,,"0,33",,N,N,P,N,Y,Y,N,,"0,43",,"0,43"
+,Ethical Statement,Details on IRB approval and informed consent procedure,Content,No,Y,Y,Y,N,N,N,Y,,"0,63",,N,N,N,N,Y,N,,"0,17",,N,N,N,N,N,N,N,,"0,00",,"0,29"
+,Equity and Access,"Statement on equity, diversity and access to AI application","Content, Quality",Yes,N,N,N,N,N,N,P,,"0,25",,P,N,N,N,Y,N,,"0,33",,N,N,N,N,N,N,N,,"0,00",,"0,19"
+,Legal and regulatory Aspects,Statement on legal and regulatory aspects,Content,Partially,N,N,N,N,N,N,N,,"0,13",,N,N,N,N,Y,N,,"0,17",,N,N,N,N,Y,Y,N,,"0,29",,"0,19"
