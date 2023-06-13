@@ -188,7 +188,7 @@ if __name__ == "__main__":
         # for bootstrapping we sample from all the available predictions
         preds_df = pd.concat([pd.read_csv(p, dtype=str) for p in args.preds_csvs])
         bootstrapped_stats = bootstrapped_categorical(
-            preds_df, target_label=args.target_label, n_samples=args.bootstrap_n_samples
+            preds_df, target_label=args.target_label, n_samples=args.n_bootstrap_samples
         )
         bootstrapped_stats.to_csv(
             args.outpath / f"{args.target_label}-categorical-stats-bootstrapped.csv"
