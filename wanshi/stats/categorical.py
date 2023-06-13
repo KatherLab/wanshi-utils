@@ -123,7 +123,6 @@ def bootstrapped_categorical(
     means = grouped.mean()
     lower = grouped.quantile(".025")
     upper = grouped.quantile(".975")
-    confs = (upper - lower) / 2
 
     # We aggregate the stats in such a roundabout way to have the items in the
     # same order as the `categorical` function gave them to us, with the "mean"
@@ -131,7 +130,11 @@ def bootstrapped_categorical(
     stats = {}
     for category in means.index:
         cat_stats_df = pd.DataFrame.from_dict(
-            {"mean": means.loc[category], "95% conf": confs.loc[category]},
+            {
+                "mean": means.loc[category],
+                ".95 lower": lower.loc[category],
+                ".95 upper": upper.loc[category],
+            },
             orient="index",
         ).unstack()
         stats[category] = cat_stats_df
