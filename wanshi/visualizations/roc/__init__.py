@@ -102,9 +102,9 @@ def plot_multiple_decorated_roc_curves(
     conf_range = (h - l) / 2
 
     if title:
-        ax.set_title(f"{title}\n({auc_str(auc, conf_range)})")
+        ax.set_title(f"{title}\n({auc_str(np.mean(aucs), conf_range)})")
     else:
-        ax.set_title(auc_str(auc, conf_range))
+        ax.set_title(auc_str(np.mean(aucs), conf_range))
 
 
 def split_preds_into_groups(
