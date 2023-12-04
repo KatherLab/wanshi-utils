@@ -10,7 +10,7 @@ color_Level_of_Consensus = [color_spam[2], color_spam[1], color_spam[0]]
 color_Guideline_Type = [color_spam2[2], color_spam2[4]] # green, light green
 
 color_guide_line_group = color_spam3[:5]
-
+print(color_guide_line_group)
 color_year = color_spam4
 
 color_link = 'grey'

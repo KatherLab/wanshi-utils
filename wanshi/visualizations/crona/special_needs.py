@@ -6,7 +6,7 @@ import matplotlib as mpl
 import met_brewer
 from decide_my_facourite_color import *
 
-csv_path = 'META-AI_ Guideline Items - Tabellenblatt1.csv'
+csv_path = '/home/jeff/Downloads/META-AI_ Guideline Items - Tabellenblatt_updated.csv'
 core_data = 'core data.csv'
 import csv
 
@@ -16,10 +16,10 @@ df = pd.read_csv(csv_path, sep=',', header=0, index_col=0)
 first_row = df.iloc[0]
 # get the first column
 first_column = df.iloc[:,0]
-high_critirian_names = df.columns.values[4:11]
-medium_critirian_names = df.columns.values[14:20]
+high_critirian_names = df.columns.values[4:13]
+medium_critirian_names = df.columns.values[16:22]
 
-low_critirian_names = df.columns.values[23:30]
+low_critirian_names = df.columns.values[25:36]
 all_critirian_names = np.concatenate((high_critirian_names, medium_critirian_names, low_critirian_names))
 
 #print(all_critirian_names)
@@ -125,19 +125,19 @@ track1.xticks(
     label_orientation="vertical",
 label_size=font_size,
 )
-for i in range(7):
+for i in range(9):
     start, end = i, i + 1
     track1.rect(start, end, fc=color_Level_of_Consensus[0], ec="black", lw=1)
 for i in range(6):
     start, end = i, i + 1
-    track1.rect(start+7, end+7, fc=color_Level_of_Consensus[1], ec="black", lw=1)
-for i in range(7):
+    track1.rect(start+9, end+9, fc=color_Level_of_Consensus[1], ec="black", lw=1)
+for i in range(11):
     start, end = i, i + 1
-    track1.rect(start+13, end+13, fc=color_Level_of_Consensus[2], ec="black", lw=1)
+    track1.rect(start+15, end+15, fc=color_Level_of_Consensus[2], ec="black", lw=1)
 # Plot rect & text (style2)
 track2 = sector.add_track((80, 90))
 track2.axis()
-guideline_list = ['G','G','G','G','G','S','G','G','G','S','G','S','S','G','S','S','S','S','S','G']
+guideline_list = ['G','G','G','G','G','S','S','G','S',   'G','G','S','G','S','S',    'G','S','G','G','G','S','S','S','S','S','G']
 print(len(guideline_list))
 from collections import OrderedDict
 
@@ -150,7 +150,7 @@ for i in (range(0, int(track1.size))):
     track2.rect(start, end, fc=color, ec="black", lw=1)
     #track2.text(str(guideline_list[i]), (end + start) / 2, size=8, color="white", adjust_rotation=False)
 track3 = sector.add_track((70, 80))
-year = [2009,2015,2016,2020,2020,2022,2022,2019,2020,2020,2021,2022,2023,2012,2020,2021,2021,2022,2022,2022]
+year = [2009,2015,2016,2020,2020,2021,2022,2022,2023,  2019,2020,2020,2021,2022,2023,    2012,2020,2020,2020,2021,2021,2021,2021,2022,2022,2022]
 unique_years = sorted(set(year))
 print(len(unique_years))
 # Distribute color_year evenly across the unique years
@@ -177,7 +177,7 @@ tuple_listP = []
 for cri in range(len(all_critirian_names)):
     #print(cri)
     for item in range(len(item_names)):
-        #print(item)
+        print(item_names)
         if df_core_data.iloc[item, cri+4] == "Y":
             #print(item, cri)
             tuple_listY.append((item, cri))

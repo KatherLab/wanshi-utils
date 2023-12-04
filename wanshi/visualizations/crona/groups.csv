@@ -1,0 +1,37 @@
+Clinical Rationale,Topic
+,Study Design
+,Prediction Problem
+,Clinical Setting
+,Rationale
+,Existing AI and Statistical Models
+,State-of-the-art
+Data,"Data Sources, Types, and Structure"
+,Data Selection
+,Data Preprocessing
+,Labeling of Input Data
+,Rater Variability
+,Data Processing Location
+,De-Identification
+,Data Dictionary
+,Data Leakage
+,Representativeness
+,Basic Statistics of the Dataset
+Model Training and Validation,Type of Prediction Model
+,Model Development
+,Model Validation
+,Model Interpretability
+,Model Performance and Interpretation
+,Computational Cost
+,Statistical Methods
+,Performance Errors
+,Over-/Underfitting
+Critical Appraisal,Clinical Implications and Practical Value
+,Translation
+,Limitations
+Ethics and Reproducibility,Data Publication
+,Code Publication
+,AI Intervention Publication
+,Future Updates
+,Ethical Statement
+,Equity and Access
+,Legal and Regulatory Aspects
