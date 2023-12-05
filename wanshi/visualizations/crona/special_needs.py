@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import met_brewer
 from decide_my_facourite_color import *
+# Set the font globally
+mpl.rcParams['font.family'] = 'Sans-serif'  # or 'Helvetica' if available
 
 csv_path = '/home/jeff/Downloads/META-AI_ Guideline Items - Tabellenblatt_updated.csv'
 core_data = 'core data.csv'
@@ -71,6 +73,8 @@ track1.xticks(
     label_margin=2,
     label_orientation="vertical",
     label_size=font_size,
+    text_kws={'fontname':'Sans-serif'},
+    line_kws={'fontname':'Sans-serif'},
 
 )
 track1.xticks_by_interval(1, show_label=False)
@@ -138,7 +142,7 @@ for i in range(11):
 track2 = sector.add_track((80, 90))
 track2.axis()
 guideline_list = ['G','G','G','G','G','S','S','G','S',   'G','G','S','G','S','S',    'G','S','G','G','G','S','S','S','S','S','G']
-print(len(guideline_list))
+#print(len(guideline_list))
 from collections import OrderedDict
 
 for i in (range(0, int(track1.size))):
@@ -152,7 +156,7 @@ for i in (range(0, int(track1.size))):
 track3 = sector.add_track((70, 80))
 year = [2009,2015,2016,2020,2020,2021,2022,2022,2023,  2019,2020,2020,2021,2022,2023,    2012,2020,2020,2020,2021,2021,2021,2021,2022,2022,2022]
 unique_years = sorted(set(year))
-print(len(unique_years))
+#print(len(unique_years))
 # Distribute color_year evenly across the unique years
 color_mapping = [(yr, color_year[i % len(color_year)]) for i, yr in enumerate(unique_years)]
 
