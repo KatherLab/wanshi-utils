@@ -5,12 +5,12 @@ library(circlize)
 # Read the data
 data <- read.csv("/home/jeff/PycharmProjects/wanshi-utils/wanshi/visualizations/crona/finial2.csv", sep = ",")
 # Change the column names to make them easier to work with
-colnames(data) <- c("Groups", "GuidelineItem", "High", "Intermediate", "Low", "Overall","General","Specific")
+colnames(data) <- c("Groups", "GuidelineItem", "Comprehensive", "Collaborative", "Expert-Led", "Overall","General","Specific")
 
 # Convert the percentage strings to numbers
-data$High <- as.numeric(sub(",", ".", data$High))
-data$Intermediate <- as.numeric(sub(",", ".", data$Intermediate))
-data$Low <- as.numeric(sub(",", ".", data$Low))
+data$Comprehensive <- as.numeric(sub(",", ".", data$Comprehensive))
+data$Collaborative <- as.numeric(sub(",", ".", data$Collaborative))
+data$`Expert-Led` <- as.numeric(sub(",", ".", data$`Expert-Led`))
 data$Overall <- as.numeric(sub(",", ".", data$Overall))
 data$General <- as.numeric(sub(",", ".", data$General))
 data$Specific <- as.numeric(sub(",", ".", data$Specific))
@@ -32,10 +32,9 @@ group_size <- 5
 # Create a grouping factor
 row_groups <- cut(seq_len(nrow(heatmap_data)),
                   breaks = seq(1, nrow(heatmap_data), by = group_size),
-                  include.lowest = TRUE,
+                  include.Lowest = TRUE,
                   labels = FALSE)
 gap_size <- 2  # Adjust this value as needed for larger gaps
-font_family <- "Helvetica"  # Change to "Arial" if you prefer
 
 # Modify the Heatmap function to include row splits
 ht_map <- Heatmap(
@@ -45,12 +44,12 @@ ht_map <- Heatmap(
     foo = anno_block(
       gp = gpar(fill = group_colors,col="white"),
       labels = unique(data$Groups),
-      labels_gp = gpar(col = "black", fontsize = 14),
+      labels_gp = gpar(col =c( "black","black","black","black","white"), fontsize = 13),
     )
   ),
 
   column_split = data$Groups,
-  row_split = c(1,1,1,3,2,2),          # Add gaps between row groups
+  row_split = c( "Consensus Process", "Consensus Process", "Consensus Process","Overall","Breadth","Breadth"),          # Add gaps between row groups
   row_gap = unit(2.5, "mm"),
   show_column_names = TRUE,
   show_row_names = TRUE,
@@ -61,8 +60,8 @@ ht_map <- Heatmap(
   row_names_side = "left",
   row_dend_width = unit(5, "mm"),
   col = colorRamp2(c(0, 1), c("white", "black")),  # Remove border around boxes
-  row_names_gp = gpar(fontsize = 13),
-  column_names_gp = gpar(fontsize = 13),
+  row_names_gp = gpar(fontsize = 14),
+  column_names_gp = gpar(fontsize = 14),
   column_names_rot = 45,
 )
 
