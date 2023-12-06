@@ -6,9 +6,9 @@ import matplotlib as mpl
 import met_brewer
 from decide_my_facourite_color import *
 # Set the font globally
-mpl.rcParams['font.family'] = 'Sans-serif'  # or 'Helvetica' if available
+mpl.rcParams['font.family'] = 'Arial'  # or 'Helvetica' if available
 
-csv_path = '/home/jeff/Downloads/META-AI_ Guideline Items - Tabellenblatt_updated.csv'
+csv_path = 'META-AI_ Guideline Items - Tabellenblatt1.csv'
 core_data = 'core data.csv'
 import csv
 
@@ -73,8 +73,8 @@ track1.xticks(
     label_margin=2,
     label_orientation="vertical",
     label_size=font_size,
-    text_kws={'fontname':'Sans-serif'},
-    line_kws={'fontname':'Sans-serif'},
+    text_kws={'fontname':'Arial'},
+    line_kws={'fontname':'Arial'},
 
 )
 track1.xticks_by_interval(1, show_label=False)
@@ -178,10 +178,10 @@ item_names_list = enumerate(item_names)
 # get row and column number of the dataframe when the value is Y
 tuple_listY = []
 tuple_listP = []
+
 for cri in range(len(all_critirian_names)):
     #print(cri)
     for item in range(len(item_names)):
-        print(item_names)
         if df_core_data.iloc[item, cri+4] == "Y":
             #print(item, cri)
             tuple_listY.append((item, cri))
@@ -189,17 +189,16 @@ for cri in range(len(all_critirian_names)):
             #print(item, cri)
             tuple_listP.append((item, cri))
 
-for i in range(len(tuple_listY)):
-    #print(("Guideline Item", tuple_listY[i][0], tuple_listY[i][0]+1), ("Critirian", tuple_listY[i][1], tuple_listY[i][1]+1))
-    circos.link(("Guideline Item", tuple_listY[i][0]+gap, tuple_listY[i][0]+1-gap), ("Critirian", tuple_listY[i][1]+gap, tuple_listY[i][1]+1-gap),alpha=alphaY, color=color_link, r1=90, r2=70)
+for i in (range(len(tuple_listY))):
+    circos.link(("Guideline Item", 36-tuple_listY[i][0]+gap, 36-tuple_listY[i][0]+1-gap), ("Critirian", tuple_listY[i][1]+gap, tuple_listY[i][1]+1-gap),alpha=alphaY, color=color_link, r1=90, r2=70)
 for i in range(len(tuple_listP)):
-    circos.link(("Guideline Item", tuple_listP[i][0]+gap, tuple_listP[i][0]+1-gap), ("Critirian", tuple_listP[i][1]+gap, tuple_listP[i][1]+1-gap),alpha=alphaP, color=color_link, r1=90, r2=70)
+    circos.link(("Guideline Item", 36-tuple_listP[i][0]+gap, 36-tuple_listP[i][0]+1-gap), ("Critirian", tuple_listP[i][1]+gap, tuple_listP[i][1]+1-gap),alpha=alphaP, color=color_link, r1=90, r2=70)
 
 
 text_common_kws = {'ha':"left", 'va':"center", 'size':8}
-circos.text(" Consensus Process", r=95, color="black", **text_common_kws, weight="bold")
-circos.text(" Guideline Type", r=85, color="black", **text_common_kws, weight="bold")
-circos.text(" Year of Publication", r=75, color="black", **text_common_kws, weight="bold")
+circos.text(" Consensus Process", r=95, color="black", **text_common_kws, weight="bold", **{'fontname':'Arial'})
+circos.text(" Guideline Type", r=85, color="black", **text_common_kws, weight="bold", **{'fontname':'Arial'})
+circos.text(" Year of Publication", r=75, color="black", **text_common_kws, weight="bold", **{'fontname':'Arial'})
 
 # circos.text(" META AI ", r=185, color="black", **{'ha':"center", 'va':"center", 'size':18})
 

@@ -19,8 +19,8 @@ gap = 0.1
 
 font_size = 9
 
-alphaY = 0.1
-alphaP = 0.03
+alphaY = 0.08
+alphaP = 0.02
 
 
 if __name__ == '__main__':

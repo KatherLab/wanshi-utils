@@ -2,8 +2,10 @@
 library(ComplexHeatmap)
 # Load circlize package
 library(circlize)
+par(family = "Arial")
+
 # Read the data
-data <- read.csv("/home/jeff/PycharmProjects/wanshi-utils/wanshi/visualizations/crona/finial2.csv", sep = ",")
+data <- read.csv("E:\\PycharmProjects\\wanshi-utils\\wanshi\\visualizations\\crona\\finial2.csv", sep = ",")
 # Change the column names to make them easier to work with
 colnames(data) <- c("Groups", "GuidelineItem", "Comprehensive", "Collaborative", "Expert-Led", "Overall","General","Specific")
 
