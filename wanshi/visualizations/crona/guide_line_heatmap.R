@@ -67,5 +67,11 @@ ht_map <- Heatmap(
   column_names_rot = 45,
 )
 
-# Draw the heatmap with gaps between row groups
+# Open the SVG Graphics Device
+#svg("heatmap.svg", width = 8, height = 6)  # Adjust 'width' and 'height' as needed
+
+# Draw the heatmap
 draw(ht_map)
+
+# Close the SVG Graphics Device
+#dev.off()
